@@ -350,15 +350,6 @@ vim.opt.shiftwidth = 4
 
 vim.opt.number = true
 
-require("lspconfig").tsserver.setup {
-    settings = {
-        typescript = {
-            diagnostics = {
-                ignoreCodes = { 6133 }
-            }
-        }
-    }
-}
 
 local code_actions = require "lvim.lsp.null-ls.code_actions"
 code_actions.setup {
