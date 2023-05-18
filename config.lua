@@ -255,8 +255,15 @@ lvim.builtin.which_key.mappings["e"] = {
 
 lvim.builtin.which_key.mappings["t"] = {
     function()
-        require("trouble").toggle()
-    end, "Toggle trouble"
+        -- require("trouble").toggle()
+        tsbuiltin.diagnostics()
+    end, "Show diagnostics"
+}
+
+lvim.builtin.which_key.mappings["h"] = {
+    function()
+        vim.diagnostic.open_float()
+    end, "Show diagnostics info"
 }
 
 
@@ -274,10 +281,27 @@ lvim.builtin.which_key.mappings["t"] = {
 -- vim.keymap.set({ "i", "x" }, "<leader>E", ":Error<cr>")
 --
 --
+--
+vim.api.nvim_create_user_command(
+    'FindReferences',
+    function()
+        tsbuiltin.lsp_references()
+    end,
+    { nargs = 0 }
+)
+
 vim.api.nvim_create_user_command(
     'Error',
     function()
-        vim.diagnostic.goto_next()
+        tsbuiltin.diagnostic.goto_next()
+    end,
+    { nargs = 0 }
+)
+
+vim.api.nvim_create_user_command(
+    'ErrorList',
+    function()
+        tsbuiltin.diagnostics()
     end,
     { nargs = 0 }
 )
@@ -325,6 +349,16 @@ vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 
 vim.opt.number = true
+
+require("lspconfig").tsserver.setup {
+    settings = {
+        typescript = {
+            diagnostics = {
+                ignoreCodes = { 6133 }
+            }
+        }
+    }
+}
 
 local code_actions = require "lvim.lsp.null-ls.code_actions"
 code_actions.setup {
