@@ -13,6 +13,7 @@ lvim.plugins = {
     },
     {
         "tpope/vim-fugitive",
+        cmd = { "Gread" },
     },
     {
         "folke/trouble.nvim",
