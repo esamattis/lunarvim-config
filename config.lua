@@ -11,6 +11,13 @@ lvim.plugins = {
             })
         end
     },
+    { "projekt0n/github-nvim-theme" },
+    { "olimorris/onedarkpro.nvim" },
+    { "shaunsingh/nord.nvim" },
+    {
+        "catppuccin/nvim",
+        name = "catppuccin"
+    },
     {
         "tpope/vim-fugitive",
         cmd = { "Gread" },
@@ -54,6 +61,8 @@ lvim.plugins = {
     }
 }
 
+
+-- lvim.colorscheme = "github_dark"
 
 vim.g.diagnostics_active = true
 local function toggle_diagnostics()
