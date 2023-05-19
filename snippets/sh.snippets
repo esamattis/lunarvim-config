@@ -1,0 +1,22 @@
+snippet bang
+	#!/bin/sh
+
+	set -eu
+
+snippet help
+	if [ "$#" -ne 1 ]; then
+		echo "Usage: $0 <arg>"
+		exit 1
+	fi
+
+snippet err echo to stderr
+	>&2 echo $1
+	
+
+snippet bash
+	#!/bin/bash
+
+	set -eu
+	set -o pipefail
+
+

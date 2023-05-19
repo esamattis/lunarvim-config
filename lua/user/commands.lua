@@ -43,9 +43,9 @@ add_command({
 
 
 add_command({
-    desc         = "Find References",
+    desc         = "Find All References",
     leader       = "R",
-    command_name = "FindReferences",
+    command_name = "FindAllReferences",
     cmd          = function()
         tsbuiltin.lsp_references(ts_layout)
     end,
@@ -144,6 +144,15 @@ add_command({
         require("telescope.builtin").git_files({
             git_command = { "git", "ls-files", "--exclude-standard", "--cached", vim.fn.getcwd() }
         })
+    end
+})
+
+add_command({
+    desc         = "Edit snippets",
+    command_name = "EditSnippets",
+    cmd          = function()
+        -- open snippet file in ~/.config/nvim/snippets/[filetype].snippets
+        vim.cmd("edit " .. vim.fn.stdpath("config") .. "/snippets/" .. vim.bo.filetype .. ".snippets")
     end
 })
 

@@ -23,6 +23,7 @@ end
 
 
 
+
 -- always exit vim no matter what with <m-x>
 local function always_exit()
     vim.api.nvim_command("stopinsert")
