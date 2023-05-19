@@ -221,3 +221,9 @@ add_command({
         require("spectre").open_file_search()
     end
 })
+
+add_command({
+    desc = "Open in GitHub",
+    command_name = "OpenInGHFile",
+    cmd = "OpenInGHFile"
+})

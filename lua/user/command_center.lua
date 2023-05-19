@@ -7,6 +7,11 @@ lvim.builtin.which_key.mappings["a"] = {
     "<CMD>CommandCenter<cr>", "Open command center"
 }
 
+-- bind <leader>a to visual mode
+-- vim.keymap.set("v", "<C-a>", function()
+--     print("wat")
+-- end)
+
 vim.api.nvim_create_user_command(
     'ErrorList',
     function()
