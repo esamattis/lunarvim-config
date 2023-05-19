@@ -16,27 +16,12 @@ end
 local wat = require("user.options")
 
 
-vim.api.nvim_create_user_command(
-    "Test",
-    wat.test,
-    { nargs = 0 }
-)
 
 
 lvim.plugins = {
     require("user.command_center"),
-    {
-        "gbprod/yanky.nvim",
-        config = function()
-            require("yanky").setup({
-                highlight = {
-                    on_put = true,
-                    on_yank = true,
-                    timer = 200,
-                },
-            })
-        end
-    },
+    require("user.copilot"),
+    require("user.yanky"),
     {
         "folke/todo-comments.nvim",
         event = "BufRead",
@@ -72,24 +57,6 @@ lvim.plugins = {
         end
     },
     {
-        "zbirenbaum/copilot.lua",
-        config = function()
-            require("copilot").setup({
-                suggestion = {
-                    auto_trigger = true,
-                    keymap = {
-                        accept = "<M-m>",
-                        accept_word = false,
-                        accept_line = false,
-                        next = "<M-n>",
-                        prev = "<M-p>",
-                        dismiss = "<M-c>",
-                    },
-                }
-            })
-        end
-    },
-    {
         'nmac427/guess-indent.nvim',
         config = function() require('guess-indent').setup {} end,
     },
@@ -98,6 +65,8 @@ lvim.plugins = {
         cmd = 'CodeActionMenu',
     }
 }
+
+require("user.terminal")
 
 
 -- if ITERM_PROFILE is set to "dark" then use the dark theme
@@ -124,48 +93,6 @@ lvim.builtin.which_key.mappings["r"] = {
     end, "Rename symbol"
 }
 
--- exit terminal insert mode
-vim.keymap.set({ "t", "x" }, "<m-o>", "<C-\\><C-n>")
-
-lvim.builtin.terminal.open_mapping = "<m-y>"
-
-
-local function bind_navigation(key)
-    vim.keymap.set({ "t", "x" }, "<m-" .. key .. ">", function()
-        vim.api.nvim_command("stopinsert")
-        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-w>" .. key, true, true, true), "n", true)
-    end)
-
-    vim.keymap.set({ "i", "x" }, "<m-" .. key .. ">", function()
-        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-w>" .. key, true, true, true), "n", true)
-    end)
-    vim.keymap.set({ "n", "x" }, "<m-" .. key .. ">", function()
-        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-w>" .. key, true, true, true), "n", true)
-    end)
-end
-
-bind_navigation("h")
-bind_navigation("j")
-bind_navigation("k")
-bind_navigation("l")
-
-
--- vim.keymap.set({ "t", "x" }, "<m-k>", function()
---     vim.api.nvim_command("stopinsert")
---     vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-w>k", true, true, true), "n", true)
--- end)
-
-
-
-
-
-vim.keymap.set({ "n", "x" }, "p", "<Plug>(YankyPutAfter)")
-vim.keymap.set({ "n", "x" }, "P", "<Plug>(YankyPutBefore)")
-vim.keymap.set({ "n", "x" }, "gp", "<Plug>(YankyGPutAfter)")
-vim.keymap.set({ "n", "x" }, "gP", "<Plug>(YankyGPutBefore)")
-vim.keymap.set("n", "<c-p>", "<Plug>(YankyCycleForward)")
-vim.keymap.set("n", "<c-n>", "<Plug>(YankyCycleBackward)")
-
 
 -- always exit vim no matter what with <m-x>
 local function always_exit()
@@ -188,12 +115,6 @@ vim.keymap.set("n", "<C-h>", "10<c-w><")
 vim.keymap.set("i", "<S-Tab>", "<C-V><Tab>")
 
 
--- copilot accept suggestion. For some setting as plugin setting the keymap is
--- not working in  all files
-vim.keymap.set("i", "<M-l>", function()
-    require("copilot.suggestion").accept()
-end)
-
 
 -- old leader
 vim.keymap.set("n", ",", function()
@@ -202,30 +123,10 @@ end)
 
 
 
-vim.opt.whichwrap = ""
-
--- bash like completion
-vim.opt.wildmode = "longest,list"
-
--- disable system clipboad sync
-vim.opt.clipboard = ""
-
--- display tab characters
-vim.opt.list = true
-
-
--- Do not change endof file ever to avoid useless git diffs
-vim.opt.fixendofline = false
-
--- lvim.leader = "<Space>"
-
-
-
-
-
 lvim.keys.normal_mode["<Leader>w"] = ":wa<cr>"
 
 
+-- join lines with above
 lvim.lsp.buffer_mappings.normal_mode.K = false
 lvim.keys.normal_mode["K"] = "kJ"
 
@@ -254,38 +155,9 @@ lvim.keys.visual_mode["ö"] = "^"
 lvim.keys.visual_mode["ä"] = "$"
 
 
+-- quick search with word under the cursor
+vim.keymap.set("n", "<space><space>", "*N")
 
--- lvim.keys.insert_mode["<C-,>"] = function()
---     print("wat2")
---     require("copilot.suggestion").accept()
--- end
-
--- vim.keymap.set({ "i", "x" }, "<C-ö>", function()
---     require("copilot.suggestion").accept()
--- end)
-
-
-
--- lvim.builtin.which_key.mappings["c"] = {
---     function()
---         require("copilot.panel").next()
---     end, "Github Copilot Next"
--- }
-
--- lvim.builtin.which_key.mappings["cp"] = {
---     function()
---         require("copilot.panel").open()
---     end, "Github Copilot"
--- }
-
--- lvim.keys.normal_mode["<Leader>f"] = false
--- lvim.keys.normal_mode["<Leader>F"] = ":lua vim.lsp.buf.code_action()<CR>"
---
--- lvim.keys.normal_mode["<leader>m"] = ":Telescope buffers<cr>"
--- lvim.keys.normal_mode["<leader>n"] = ":Telescope find_files<cr>"
---
---
---
 
 local tsbuiltin = require("telescope.builtin")
 
@@ -305,8 +177,6 @@ lvim.builtin.which_key.mappings["F"] = {
 }
 
 
--- quick search
-vim.keymap.set("n", "<space><space>", "*N")
 
 
 lvim.builtin.which_key.mappings["b"] = {
@@ -330,105 +200,7 @@ lvim.builtin.which_key.mappings["e"] = {
     end, "Go no next diagnostic"
 }
 
-local ts_layout = {
-    layout_strategy = 'vertical', layout_config = { width = 0.8, height = 0.8 }
-}
 
-
-
--- vim.keymap.set({ "n", "x" }, "<leader>E", function()
---     vim.diagnostic.goto_next()
--- end)
-
-
--- vim.keymap.set({ "n", "x" }, "<leader>E", ":Error<cr>")
-
--- vim.keymap.set({ "i", "x" }, "<leader>c", function()
---     require("copilot.panel").open()
--- end)
-
--- vim.keymap.set({ "i", "x" }, "<leader>E", ":Error<cr>")
---
---
---
-vim.api.nvim_create_user_command(
-    'FindReferences',
-    function()
-        tsbuiltin.lsp_references(ts_layout)
-    end,
-    { nargs = 0 }
-)
-
-
-lvim.builtin.which_key.mappings["R"] = {
-    function()
-        tsbuiltin.lsp_references(ts_layout)
-    end, "Find References"
-}
-
-vim.api.nvim_create_user_command(
-    'Error',
-    function()
-        tsbuiltin.diagnostic.goto_next()
-    end,
-    { nargs = 0 }
-)
-
-vim.api.nvim_create_user_command(
-    'ErrorList',
-    function()
-        tsbuiltin.diagnostics(ts_layout)
-    end,
-    { nargs = 0 }
-)
-
-lvim.builtin.which_key.mappings["t"] = {
-    function()
-        -- require("trouble").toggle()
-        tsbuiltin.diagnostics(ts_layout)
-    end, "Show diagnostics"
-}
-
-lvim.builtin.which_key.mappings["h"] = {
-    function()
-        vim.diagnostic.open_float()
-    end, "Show diagnostics info"
-}
-
-
-
-
-
--- Copy default register to system clipboard
--- vim.api.nvim_create_user_command(
---     'ToClipboard',
---     'let @+=@"',
---     { nargs = 0 }
--- )
-
--- vim.api.nvim_create_user_command(
---     'Files',
---     function()
---         vim.api.nvim_command("NvimTreeToggle")
---     end,
---     { nargs = 0 }
--- )
-
-vim.api.nvim_create_autocmd("TermOpen", {
-    callback = function()
-        print("setting insert mode for new termal")
-        vim.api.nvim_command("startinsert")
-    end,
-})
-
-vim.api.nvim_create_autocmd("BufEnter", {
-    callback = function()
-        if vim.bo.buftype == "terminal" then
-            print("setting insert mode for existing termal")
-            vim.api.nvim_command("startinsert")
-        end
-    end,
-})
 
 
 
