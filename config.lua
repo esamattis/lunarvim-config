@@ -1,3 +1,18 @@
+local diagnostics_active = true
+local function toggle_diagnostics()
+    if diagnostics_active then
+        vim.diagnostic.config({
+            virtual_text = false,
+        })
+        diagnostics_active = false
+    else
+        vim.diagnostic.config({
+            virtual_text = true,
+        })
+        diagnostics_active = true
+    end
+end
+
 lvim.plugins = {
     {
         "gbprod/yanky.nvim",
@@ -64,6 +79,14 @@ lvim.plugins = {
                 {
                     desc = "Quick Fix",
                     cmd  = "<CMD>CodeActionMenu<cr>",
+                },
+                {
+                    desc = "Toggle Copilot",
+                    cmd  = "<CMD>Copilot toggle<CR>"
+                },
+                {
+                    desc = "Toggle Diagnostic",
+                    cmd  = toggle_diagnostics,
                 },
                 {
                     desc = "Git restore",
@@ -137,20 +160,6 @@ if os.getenv("ITERM_PROFILE") == "Light" then
     lvim.colorscheme = "catppuccin-latte"
 end
 
-local diagnostics_active = true
-local function toggle_diagnostics()
-    if diagnostics_active then
-        vim.diagnostic.config({
-            virtual_text = false,
-        })
-        diagnostics_active = false
-    else
-        vim.diagnostic.config({
-            virtual_text = true,
-        })
-        diagnostics_active = true
-    end
-end
 
 vim.api.nvim_create_user_command(
     'ToggleDiagnostic',
@@ -205,7 +214,6 @@ bind_navigation("l")
 
 
 
-
 vim.keymap.set({ "n", "x" }, "p", "<Plug>(YankyPutAfter)")
 vim.keymap.set({ "n", "x" }, "P", "<Plug>(YankyPutBefore)")
 vim.keymap.set({ "n", "x" }, "gp", "<Plug>(YankyGPutAfter)")
@@ -221,8 +229,18 @@ vim.keymap.set("n", "<C-l>", "10<c-w>>")
 vim.keymap.set("n", "<C-h>", "10<c-w><")
 
 
+-- insert tab character always
 vim.keymap.set("i", "<S-Tab>", "<C-V><Tab>")
 
+
+-- copilot accept suggestion. For some setting as plugin setting the keymap is
+-- not working in  all files
+vim.keymap.set("i", "<M-l>", function()
+    require("copilot.suggestion").accept()
+end)
+
+
+-- old leader
 vim.keymap.set("n", ",", function()
     print("not in use!!!!!")
 end)
@@ -252,7 +270,6 @@ lvim.format_on_save.enabled = true
 
 
 lvim.keys.normal_mode["<Leader>w"] = ":wa<cr>"
-lvim.keys.insert_mode["<Leader>w"] = "<esc>:wa<cr>"
 
 
 lvim.lsp.buffer_mappings.normal_mode.K = false
@@ -273,7 +290,6 @@ lvim.keys.normal_mode["gh"] = ":lua vim.lsp.buf.hover()<cr>"
 -- go back from jump to definition. Does not work.
 lvim.keys.normal_mode["gb"] = "<c-o>"
 
-lvim.keys.insert_mode["<Leader>q"] = "<esc>:q<cr>"
 lvim.keys.normal_mode["<Leader>q"] = ":q<cr>"
 lvim.keys.insert_mode["jj"] = "<esc>"
 
@@ -474,8 +490,6 @@ vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.number = true
-
---
 
 
 local code_actions = require "lvim.lsp.null-ls.code_actions"
