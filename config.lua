@@ -22,7 +22,61 @@ lvim.plugins = {
     { "projekt0n/github-nvim-theme" },
     {
         "FeiyouG/command_center.nvim",
-        dependencies = { "nvim-telescope/telescope.nvim" }
+        dependencies = { "nvim-telescope/telescope.nvim" },
+        cmd = { "CommandCenter" },
+        config = function()
+            vim.api.nvim_create_user_command(
+                "CommandCenter",
+                "Telescope command_center",
+                { nargs = 0 }
+            )
+            require("telescope").load_extension("command_center")
+            require("telescope").setup {
+                extensions = {
+                    command_center = {
+                    }
+                }
+            }
+            require("command_center").add({
+                {
+                    desc = "Search inside current buffer",
+                    cmd = "<CMD>Telescope current_buffer_fuzzy_find<CR>",
+                },
+                {
+                    desc = "Show file tree",
+                    cmd = "<CMD>NvimTreeToggle<CR>",
+                },
+                {
+                    desc = "Copy default register to system clipboard",
+                    cmd  = function()
+                        local register_content = vim.fn.getreg('"')
+                        vim.fn.setreg('+', register_content)
+                    end
+                },
+                {
+                    desc = "Show all errors",
+                    cmd  = "<CMD>ErrorList<cr>",
+                },
+                {
+                    desc = "Find All References",
+                    cmd  = "<CMD>FindReferences<cr>",
+                },
+                {
+                    desc = "Quick Fix",
+                    cmd  = "<CMD>CodeActionMenu<cr>",
+                },
+                {
+                    desc = "Git restore",
+                    cmd  = "<CMD>Gread<cr>",
+                },
+                {
+                    desc = "Lua function",
+                    cmd = function()
+                        print("hello center")
+                    end
+                }
+            })
+        end
     },
     { "olimorris/onedarkpro.nvim" },
     { "shaunsingh/nord.nvim" },
@@ -374,7 +428,7 @@ lvim.builtin.which_key.mappings["h"] = {
 
 -- open command center
 lvim.builtin.which_key.mappings["a"] = {
-    "<CMD>:Telescope command_center<cr>", "Open command center"
+    "<CMD>:CommandCenter<cr>", "Open command center"
 }
 
 
@@ -441,47 +495,3 @@ null_ls.setup {
         null_ls.builtins.formatting.prettier,
     },
 }
-
-
-require("telescope").load_extension("command_center")
-require("telescope").setup {
-    extensions = {
-        command_center = {
-        }
-    }
-}
-require("command_center").add({
-    {
-        desc = "Search inside current buffer",
-        cmd = "<CMD>Telescope current_buffer_fuzzy_find<CR>",
-    },
-    {
-        desc = "Show file tree",
-        cmd = "<CMD>NvimTreeToggle<CR>",
-    },
-    {
-        desc = "Copy default register to system clipboard",
-        cmd  = function()
-            local register_content = vim.fn.getreg('"')
-            vim.fn.setreg('+', register_content)
-        end
-    },
-    {
-        desc = "Show all errors",
-        cmd  = "<CMD>ErrorList<cr>",
-    },
-    {
-        desc = "Find All References",
-        cmd  = "<CMD>FindReferences<cr>",
-    },
-    {
-        desc = "Quick Fix",
-        cmd  = "<CMD>CodeActionMenu<cr>",
-    },
-    {
-        desc = "Lua function",
-        cmd = function()
-            print("hello center")
-        end
-    }
-})
