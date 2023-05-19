@@ -13,7 +13,18 @@ local function toggle_diagnostics()
     end
 end
 
+local wat = require("user.options")
+
+
+vim.api.nvim_create_user_command(
+    "Test",
+    wat.test,
+    { nargs = 0 }
+)
+
+
 lvim.plugins = {
+    require("user.command_center"),
     {
         "gbprod/yanky.nvim",
         config = function()
@@ -35,72 +46,6 @@ lvim.plugins = {
     },
     { "tpope/vim-surround" },
     { "projekt0n/github-nvim-theme" },
-    {
-        "FeiyouG/command_center.nvim",
-        dependencies = { "nvim-telescope/telescope.nvim" },
-        cmd = { "CommandCenter" },
-        config = function()
-            vim.api.nvim_create_user_command(
-                "CommandCenter",
-                "Telescope command_center",
-                { nargs = 0 }
-            )
-            require("telescope").load_extension("command_center")
-            require("telescope").setup {
-                extensions = {
-                    command_center = {
-                    }
-                }
-            }
-            require("command_center").add({
-                {
-                    desc = "Search inside current buffer",
-                    cmd = "<CMD>Telescope current_buffer_fuzzy_find<CR>",
-                },
-                {
-                    desc = "Show file tree",
-                    cmd = "<CMD>NvimTreeToggle<CR>",
-                },
-                {
-                    desc = "Copy default register to system clipboard",
-                    cmd  = function()
-                        local register_content = vim.fn.getreg('"')
-                        vim.fn.setreg('+', register_content)
-                    end
-                },
-                {
-                    desc = "Show all errors",
-                    cmd  = "<CMD>ErrorList<cr>",
-                },
-                {
-                    desc = "Find All References",
-                    cmd  = "<CMD>FindReferences<cr>",
-                },
-                {
-                    desc = "Quick Fix",
-                    cmd  = "<CMD>CodeActionMenu<cr>",
-                },
-                {
-                    desc = "Toggle Copilot",
-                    cmd  = "<CMD>Copilot toggle<CR>"
-                },
-                {
-                    desc = "Toggle Diagnostic",
-                    cmd  = toggle_diagnostics,
-                },
-                {
-                    desc = "Git restore",
-                    cmd  = "<CMD>Gread<cr>",
-                },
-                {
-                    desc = "Lua function",
-                    cmd = function()
-                        print("hello center")
-                    end
-                }
-            })
-        end
-    },
     { "olimorris/onedarkpro.nvim" },
     { "shaunsingh/nord.nvim" },
     {
@@ -227,9 +172,9 @@ local function always_exit()
     vim.api.nvim_command("stopinsert")
     vim.api.nvim_command("qa!")
 end
-vim.keymap.set("i", "<m-q>", always_exit)
-vim.keymap.set("n", "<m-q>", always_exit)
-vim.keymap.set("t", "<m-q>", always_exit)
+vim.keymap.set("i", "<m-x>", always_exit)
+vim.keymap.set("n", "<m-x>", always_exit)
+vim.keymap.set("t", "<m-x>", always_exit)
 
 
 -- split resize
@@ -274,7 +219,6 @@ vim.opt.fixendofline = false
 
 -- lvim.leader = "<Space>"
 
-lvim.format_on_save.enabled = true
 
 
 
@@ -452,10 +396,6 @@ lvim.builtin.which_key.mappings["h"] = {
 }
 
 
--- open command center
-lvim.builtin.which_key.mappings["a"] = {
-    "<CMD>:CommandCenter<cr>", "Open command center"
-}
 
 
 
@@ -491,11 +431,6 @@ vim.api.nvim_create_autocmd("BufEnter", {
 })
 
 
-vim.opt.tabstop = 4
-vim.opt.softtabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.number = true
-
 
 local code_actions = require "lvim.lsp.null-ls.code_actions"
 code_actions.setup {
@@ -514,3 +449,13 @@ null_ls.setup {
         null_ls.builtins.formatting.prettier,
     },
 }
+
+
+-- toggle recent buffers
+vim.keymap.set('n', ',m',
+    function()
+        tsbuiltin.buffers({
+            sort_mru = true,
+            ignore_current_buffer = true
+        })
+    end)
