@@ -18,7 +18,7 @@ local function add_command(cmd)
 end
 
 local ts_layout = {
-    layout_strategy = 'vertical', layout_config = { width = 0.8, height = 0.8 }
+    layout_strategy = 'vertical', layout_config = { width = 0.9, height = 0.9 }
 }
 local tsbuiltin = require("telescope.builtin")
 
@@ -199,8 +199,16 @@ add_command({
 })
 
 add_command({
+    desc         = "Live Grep",
+    command_name = "LiveGrep",
+    cmd          = function()
+        tsbuiltin.live_grep(ts_layout)
+    end
+})
+
+add_command({
     desc         = "Search and Replace from all files",
-    command_name = "SearchReplace",
+    command_name = "SearchReplaceAll",
     cmd          = function()
         require("spectre").open_visual()
     end
