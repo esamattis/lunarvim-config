@@ -11,6 +11,7 @@ return {
     { "olimorris/onedarkpro.nvim" },
     { "shaunsingh/nord.nvim" },
     { "nvim-pack/nvim-spectre",     lazy = true },
+    { "almo7aya/openingh.nvim",     cmd = { "OpenInGHFile", "OpenInGHRepo" } },
     {
         "catppuccin/nvim",
         name = "catppuccin"
