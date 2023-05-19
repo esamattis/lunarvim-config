@@ -10,6 +10,7 @@ return {
     { "projekt0n/github-nvim-theme" },
     { "olimorris/onedarkpro.nvim" },
     { "shaunsingh/nord.nvim" },
+    { "nvim-pack/nvim-spectre",     lazy = true },
     {
         "catppuccin/nvim",
         name = "catppuccin"

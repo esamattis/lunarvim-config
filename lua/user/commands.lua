@@ -197,3 +197,19 @@ add_command({
         vim.diagnostic.goto_next()
     end
 })
+
+add_command({
+    desc         = "Search and Replace from all files",
+    command_name = "SearchReplace",
+    cmd          = function()
+        require("spectre").open_visual()
+    end
+})
+
+add_command({
+    desc         = "Search and Replace this file",
+    command_name = "SearchReplace",
+    cmd          = function()
+        require("spectre").open_file_search()
+    end
+})
