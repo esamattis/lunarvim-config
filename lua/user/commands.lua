@@ -8,6 +8,10 @@ local function add_command(cmd)
 
     local command_name = "My" .. cmd.command_name
 
+    if cmd.command_name == cmd.cmd then
+        command_name = cmd.cmd
+    end
+
     vim.api.nvim_create_user_command(command_name, cmd.cmd, { nargs = 0 })
 
     require("command_center").add({
