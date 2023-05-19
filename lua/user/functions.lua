@@ -24,4 +24,38 @@ function fns.concat_tables(a, b)
     return result
 end
 
+local function plain_replace(text, search, replacement)
+    local result = ""
+    local search_len = string.len(search)
+    local index = 1
+    while index <= string.len(text) do
+        local match_start, match_end = string.find(text, search, index, true)
+        if match_start and match_end then
+            result = result .. string.sub(text, index, match_start - 1) .. replacement
+            index = match_end + 1
+        else
+            result = result .. string.sub(text, index)
+            break
+        end
+    end
+    return result
+end
+
+function fns.search_and_replace_current_buffer(old_string, new_string)
+    -- Get the current buffer number
+    local bufnr = vim.api.nvim_get_current_buf()
+
+    -- Get the buffer lines
+    local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
+
+    -- Replace old_string with new_string in every line
+    for i, line in ipairs(lines) do
+        -- lines[i] = line:gsub(old_string, new_string)
+        lines[i] = plain_replace(line, old_string, new_string)
+    end
+
+    -- Set the buffer lines with the modified content
+    vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, lines)
+end
+
 return fns

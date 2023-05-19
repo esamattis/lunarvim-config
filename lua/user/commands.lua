@@ -1,3 +1,4 @@
+local fns = require("user.functions")
 local function add_command(cmd)
     if cmd.leader then
         lvim.builtin.which_key.mappings[cmd.leader] = {
@@ -17,8 +18,8 @@ local function add_command(cmd)
     })
 end
 
-local ts_layout = {
-    layout_strategy = 'vertical', layout_config = { width = 0.9, height = 0.9 }
+local full_screen = {
+    layout_strategy = 'vertical', layout_config = { width = 0.99, height = 0.99 }
 }
 local tsbuiltin = require("telescope.builtin")
 
@@ -28,7 +29,10 @@ add_command({
     desc         = "Fuzzy Current Buffer",
     leader       = "z",
     command_name = "CurrentBufferFuzzyFind",
-    cmd          = "Telescope current_buffer_fuzzy_find",
+    -- cmd          = "Telescope current_buffer_fuzzy_find",
+    cmd          = function()
+        tsbuiltin.current_buffer_fuzzy_find(full_screen)
+    end,
 })
 
 add_command({
@@ -36,7 +40,7 @@ add_command({
     leader       = "t",
     command_name = "ShowDiagnostics",
     cmd          = function()
-        tsbuiltin.diagnostics(ts_layout)
+        tsbuiltin.diagnostics(full_screen)
     end,
 })
 
@@ -47,7 +51,7 @@ add_command({
     leader       = "R",
     command_name = "FindAllReferences",
     cmd          = function()
-        tsbuiltin.lsp_references(ts_layout)
+        tsbuiltin.lsp_references(full_screen)
     end,
 })
 
@@ -211,7 +215,7 @@ add_command({
     desc         = "Live Grep",
     command_name = "LiveGrep",
     cmd          = function()
-        tsbuiltin.live_grep(ts_layout)
+        tsbuiltin.live_grep(full_screen)
     end
 })
 
@@ -245,4 +249,21 @@ add_command({
     desc = "Open in GitHub",
     command_name = "OpenInGHFile",
     cmd = "OpenInGHFile"
+})
+
+
+add_command({
+    desc         = "Simple Plain Search and Replace",
+    command_name = "SimpleSearchReplace",
+    cmd          = function()
+        local search = vim.fn.input("search> ")
+        if search == "" then
+            search = vim.fn.getreg('"')
+            print("")
+            print("Using value from the default register: ")
+            print(">> " .. search)
+        end
+        local replace = vim.fn.input("replace> ")
+        fns.search_and_replace_current_buffer(search, replace)
+    end,
 })
