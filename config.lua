@@ -66,7 +66,10 @@ lvim.plugins = {
 }
 
 
-lvim.colorscheme = "catppuccin-latte"
+-- if ITERM_PROFILE is set to "dark" then use the dark theme
+if os.getenv("ITERM_PROFILE") == "Light" then
+    lvim.colorscheme = "catppuccin-latte"
+end
 
 local diagnostics_active = true
 local function toggle_diagnostics()
