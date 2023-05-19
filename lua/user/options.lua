@@ -21,6 +21,9 @@ vim.opt.list = true
 vim.opt.fixendofline = false
 
 -- lvim.leader = "<Space>"
+--
+
+vim.opt.scrolloff = 20
 
 
 local foo = {}

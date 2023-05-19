@@ -1,21 +1,4 @@
-local diagnostics_active = true
-local function toggle_diagnostics()
-    if diagnostics_active then
-        vim.diagnostic.config({
-            virtual_text = false,
-        })
-        diagnostics_active = false
-    else
-        vim.diagnostic.config({
-            virtual_text = true,
-        })
-        diagnostics_active = true
-    end
-end
-
-local wat = require("user.options")
-
-
+require("user.options")
 
 
 lvim.plugins = {
@@ -67,6 +50,7 @@ lvim.plugins = {
 }
 
 require("user.terminal")
+require("user.commands")
 
 
 -- if ITERM_PROFILE is set to "dark" then use the dark theme
@@ -74,24 +58,6 @@ if os.getenv("ITERM_PROFILE") == "Light" then
     lvim.colorscheme = "catppuccin-latte"
 end
 
-
-vim.api.nvim_create_user_command(
-    'ToggleDiagnostic',
-    toggle_diagnostics,
-
-    { nargs = 0 }
-)
-
-lvim.builtin.which_key.mappings["E"] = {
-    toggle_diagnostics, "Toggle diagnostics virtual text"
-}
-
-lvim.builtin.which_key.mappings["r"] = {
-    function()
-        -- rename with lsp action
-        vim.lsp.buf.rename()
-    end, "Rename symbol"
-}
 
 
 -- always exit vim no matter what with <m-x>
@@ -131,14 +97,11 @@ lvim.lsp.buffer_mappings.normal_mode.K = false
 lvim.keys.normal_mode["K"] = "kJ"
 
 
---lvim.keys.insert_mode["<M-2>"] = "@"
 
 lvim.keys.normal_mode["<Leader>d"] = ":bd!<cr>"
 lvim.keys.normal_mode["<Leader>o"] = ":only<cr>"
 
 lvim.keys.normal_mode["gh"] = ":lua vim.lsp.buf.hover()<cr>"
-
-
 
 
 
@@ -157,49 +120,6 @@ lvim.keys.visual_mode["ä"] = "$"
 
 -- quick search with word under the cursor
 vim.keymap.set("n", "<space><space>", "*N")
-
-
-local tsbuiltin = require("telescope.builtin")
-
-lvim.builtin.which_key.mappings["f"] = {
-    function()
-        tsbuiltin.git_files({
-            git_command = { "git", "ls-files", "--exclude-standard", "--cached", vim.fn.getcwd() }
-        }
-        )
-    end, "Find git files from CWD"
-}
-
-lvim.builtin.which_key.mappings["F"] = {
-    function()
-        tsbuiltin.git_files()
-    end, "Find git files from Root"
-}
-
-
-
-
-lvim.builtin.which_key.mappings["b"] = {
-    function()
-        tsbuiltin.buffers({
-            initial_mode = "insert",
-        })
-    end, "Select buffer"
-}
-
-lvim.builtin.which_key.mappings["c"] = {
-    function()
-        -- vim.lsp.buf.code_action()
-        vim.api.nvim_command("CodeActionMenu")
-    end, "Quick Fix"
-}
-
-lvim.builtin.which_key.mappings["e"] = {
-    function()
-        vim.diagnostic.goto_next()
-    end, "Go no next diagnostic"
-}
-
 
 
 
@@ -226,7 +146,7 @@ null_ls.setup {
 -- toggle recent buffers
 vim.keymap.set('n', ',m',
     function()
-        tsbuiltin.buffers({
+        require("telescope.builtin").buffers({
             sort_mru = true,
             ignore_current_buffer = true
         })

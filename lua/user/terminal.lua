@@ -1,8 +1,10 @@
 -- exit terminal insert mode
 vim.keymap.set({ "t", "x" }, "<m-o>", "<C-\\><C-n>")
 
+-- start pop terminal
 lvim.builtin.terminal.open_mapping = "<m-y>"
 
+-- Automatically go to insert mode for new terminals
 vim.api.nvim_create_autocmd("TermOpen", {
     callback = function()
         print("setting insert mode for new termal")
@@ -10,6 +12,7 @@ vim.api.nvim_create_autocmd("TermOpen", {
     end,
 })
 
+-- Automatically go to inser mode for existing terminals
 vim.api.nvim_create_autocmd("BufEnter", {
     callback = function()
         if vim.bo.buftype == "terminal" then
