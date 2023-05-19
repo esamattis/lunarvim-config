@@ -20,7 +20,11 @@ lvim.plugins = {
     },
     {
         "tpope/vim-fugitive",
-        cmd = { "Gread" },
+        cmd = { "Gread", "GMove", "Gwrite" },
+    },
+    {
+        "tpope/vim-eunuch",
+        cmd = { "Rename", "Delete", "Move", "Mkdir" },
     },
     {
         "folke/trouble.nvim",
@@ -62,20 +66,20 @@ lvim.plugins = {
 }
 
 
--- lvim.colorscheme = "github_dark"
+lvim.colorscheme = "catppuccin-latte"
 
-vim.g.diagnostics_active = true
+local diagnostics_active = true
 local function toggle_diagnostics()
-    if vim.g.diagnostics_active then
+    if diagnostics_active then
         vim.diagnostic.config({
             virtual_text = false,
         })
-        vim.g.diagnostics_active = false
+        diagnostics_active = false
     else
         vim.diagnostic.config({
             virtual_text = true,
         })
-        vim.g.diagnostics_active = true
+        diagnostics_active = true
     end
 end
 
@@ -151,8 +155,6 @@ vim.keymap.set("n", "<C-h>", "10<c-w><")
 vim.keymap.set("i", "<S-Tab>", "<C-V><Tab>")
 
 
--- does not work
-vim.keymap.set({ "n", "x" }, "K", "kJ")
 
 
 vim.opt.whichwrap = ""
@@ -166,7 +168,11 @@ vim.opt.clipboard = ""
 -- display tab characters
 vim.opt.list = true
 
-lvim.leader = ","
+
+-- Do not change endof file ever to avoid useless git diffs
+vim.opt.fixendofline = false
+
+-- lvim.leader = "<Space>"
 
 lvim.format_on_save.enabled = true
 
@@ -177,6 +183,10 @@ lvim.keys.normal_mode["<Leader>w"] = ":wa<cr>"
 lvim.keys.insert_mode["<Leader>w"] = "<esc>:wa<cr>"
 
 
+lvim.lsp.buffer_mappings.normal_mode.K = false
+lvim.keys.normal_mode["K"] = "kJ"
+
+
 --lvim.keys.insert_mode["<M-2>"] = "@"
 
 lvim.keys.normal_mode["<Leader>d"] = ":bd!<cr>"
@@ -185,8 +195,6 @@ lvim.keys.normal_mode["<Leader>o"] = ":only<cr>"
 lvim.keys.normal_mode["gh"] = ":lua vim.lsp.buf.hover()<cr>"
 
 
--- quick search
-lvim.keys.normal_mode["<space>"] = "*N"
 
 
 
@@ -245,9 +253,19 @@ lvim.builtin.which_key.mappings["n"] = {
     end, "Find git files from CWD"
 }
 
+
+-- quick search
+vim.keymap.set("n", "<space><space>", "*N")
+
+-- lvim.builtin.which_key.mappings["<space>"] = {
+--     "*N", "Quick Search"
+-- }
+
 lvim.builtin.which_key.mappings["m"] = {
     function()
-        tsbuiltin.buffers()
+        tsbuiltin.buffers({
+            initial_mode = "insert",
+        })
     end, "Select buffer"
 }
 
