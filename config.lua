@@ -20,6 +20,10 @@ lvim.plugins = {
     },
     { "tpope/vim-surround" },
     { "projekt0n/github-nvim-theme" },
+    {
+        "FeiyouG/command_center.nvim",
+        dependencies = { "nvim-telescope/telescope.nvim" }
+    },
     { "olimorris/onedarkpro.nvim" },
     { "shaunsingh/nord.nvim" },
     {
@@ -52,7 +56,7 @@ lvim.plugins = {
                 suggestion = {
                     auto_trigger = true,
                     keymap = {
-                        accept = "<M-l>",
+                        accept = "<M-m>",
                         accept_word = false,
                         accept_line = false,
                         next = "<M-n>",
@@ -368,6 +372,12 @@ lvim.builtin.which_key.mappings["h"] = {
 }
 
 
+-- open command center
+lvim.builtin.which_key.mappings["a"] = {
+    "<CMD>:Telescope command_center<cr>", "Open command center"
+}
+
+
 vim.api.nvim_create_user_command(
     'QQ',
     "qa!",
@@ -375,19 +385,19 @@ vim.api.nvim_create_user_command(
 )
 
 -- Copy default register to system clipboard
-vim.api.nvim_create_user_command(
-    'ToClipboard',
-    'let @+=@"',
-    { nargs = 0 }
-)
+-- vim.api.nvim_create_user_command(
+--     'ToClipboard',
+--     'let @+=@"',
+--     { nargs = 0 }
+-- )
 
-vim.api.nvim_create_user_command(
-    'Files',
-    function()
-        vim.api.nvim_command("NvimTreeToggle")
-    end,
-    { nargs = 0 }
-)
+-- vim.api.nvim_create_user_command(
+--     'Files',
+--     function()
+--         vim.api.nvim_command("NvimTreeToggle")
+--     end,
+--     { nargs = 0 }
+-- )
 
 vim.api.nvim_create_autocmd("TermOpen", {
     callback = function()
@@ -409,8 +419,9 @@ vim.api.nvim_create_autocmd("BufEnter", {
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
-
 vim.opt.number = true
+
+--
 
 
 local code_actions = require "lvim.lsp.null-ls.code_actions"
@@ -430,3 +441,47 @@ null_ls.setup {
         null_ls.builtins.formatting.prettier,
     },
 }
+
+
+require("telescope").load_extension("command_center")
+require("telescope").setup {
+    extensions = {
+        command_center = {
+        }
+    }
+}
+require("command_center").add({
+    {
+        desc = "Search inside current buffer",
+        cmd = "<CMD>Telescope current_buffer_fuzzy_find<CR>",
+    },
+    {
+        desc = "Show file tree",
+        cmd = "<CMD>NvimTreeToggle<CR>",
+    },
+    {
+        desc = "Copy default register to system clipboard",
+        cmd  = function()
+            local register_content = vim.fn.getreg('"')
+            vim.fn.setreg('+', register_content)
+        end
+    },
+    {
+        desc = "Show all errors",
+        cmd  = "<CMD>ErrorList<cr>",
+    },
+    {
+        desc = "Find All References",
+        cmd  = "<CMD>FindReferences<cr>",
+    },
+    {
+        desc = "Quick Fix",
+        cmd  = "<CMD>CodeActionMenu<cr>",
+    },
+    {
+        desc = "Lua function",
+        cmd = function()
+            print("hello center")
+        end
+    }
+})
