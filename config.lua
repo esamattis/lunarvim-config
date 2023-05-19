@@ -1,53 +1,16 @@
-require("user.options")
+reload("user.options")
 
 
 lvim.plugins = {
     require("user.command_center"),
     require("user.copilot"),
     require("user.yanky"),
-    {
-        "folke/todo-comments.nvim",
-        event = "BufRead",
-        config = function()
-            require("todo-comments").setup()
-        end,
-    },
-    { "tpope/vim-surround" },
-    { "projekt0n/github-nvim-theme" },
-    { "olimorris/onedarkpro.nvim" },
-    { "shaunsingh/nord.nvim" },
-    {
-        "catppuccin/nvim",
-        name = "catppuccin"
-    },
-    {
-        "tpope/vim-fugitive",
-        cmd = { "Gread", "GMove", "Gwrite" },
-    },
-    {
-        "tpope/vim-eunuch",
-        cmd = { "Rename", "Delete", "Move", "Mkdir" },
-    },
-    {
-        "folke/trouble.nvim",
-        dependencies = "nvim-tree/nvim-web-devicons",
-        cmd = { "Trouble" },
-        config = function()
-            require("trouble").setup {
-                auto_close = true,
-                auto_preview = false
-            }
-        end
-    },
-    {
-        'nmac427/guess-indent.nvim',
-        config = function() require('guess-indent').setup {} end,
-    },
-    {
-        'weilbith/nvim-code-action-menu',
-        cmd = 'CodeActionMenu',
-    }
 }
+
+local plugins = require("user.plugins")
+for _, plugin in ipairs(plugins) do
+    lvim.plugins[#lvim.plugins + 1] = plugin
+end
 
 require("user.terminal")
 require("user.commands")
