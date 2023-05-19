@@ -222,6 +222,16 @@ vim.keymap.set("n", "<c-p>", "<Plug>(YankyCycleForward)")
 vim.keymap.set("n", "<c-n>", "<Plug>(YankyCycleBackward)")
 
 
+-- always exit vim no matter what with <m-x>
+local function always_exit()
+    vim.api.nvim_command("stopinsert")
+    vim.api.nvim_command("qa!")
+end
+vim.keymap.set("i", "<m-q>", always_exit)
+vim.keymap.set("n", "<m-q>", always_exit)
+vim.keymap.set("t", "<m-q>", always_exit)
+
+
 -- split resize
 vim.keymap.set("n", "<C-j>", "2<c-w>+")
 vim.keymap.set("n", "<C-k>", "2<c-w>-")
@@ -448,11 +458,6 @@ lvim.builtin.which_key.mappings["a"] = {
 }
 
 
-vim.api.nvim_create_user_command(
-    'QQ',
-    "qa!",
-    { nargs = 0 }
-)
 
 -- Copy default register to system clipboard
 -- vim.api.nvim_create_user_command(
