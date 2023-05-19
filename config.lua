@@ -52,7 +52,7 @@ lvim.plugins = {
                 suggestion = {
                     auto_trigger = true,
                     keymap = {
-                        accept = "<M-m>",
+                        accept = "<M-l>",
                         accept_word = false,
                         accept_line = false,
                         next = "<M-n>",
@@ -165,6 +165,9 @@ vim.keymap.set("n", "<C-h>", "10<c-w><")
 
 vim.keymap.set("i", "<S-Tab>", "<C-V><Tab>")
 
+vim.keymap.set("n", ",", function()
+    print("not in use!!!!!")
+end)
 
 
 
@@ -258,21 +261,27 @@ lvim.keys.visual_mode["ä"] = "$"
 
 local tsbuiltin = require("telescope.builtin")
 
-lvim.builtin.which_key.mappings["n"] = {
+lvim.builtin.which_key.mappings["f"] = {
     function()
-        tsbuiltin.find_files({ cwd = vim.fn.getcwd() })
+        tsbuiltin.git_files({
+            git_command = { "git", "ls-files", "--exclude-standard", "--cached", vim.fn.getcwd() }
+        }
+        )
     end, "Find git files from CWD"
+}
+
+lvim.builtin.which_key.mappings["F"] = {
+    function()
+        tsbuiltin.git_files()
+    end, "Find git files from Root"
 }
 
 
 -- quick search
 vim.keymap.set("n", "<space><space>", "*N")
 
--- lvim.builtin.which_key.mappings["<space>"] = {
---     "*N", "Quick Search"
--- }
 
-lvim.builtin.which_key.mappings["m"] = {
+lvim.builtin.which_key.mappings["b"] = {
     function()
         tsbuiltin.buffers({
             initial_mode = "insert",
@@ -280,7 +289,7 @@ lvim.builtin.which_key.mappings["m"] = {
     end, "Select buffer"
 }
 
-lvim.builtin.which_key.mappings["f"] = {
+lvim.builtin.which_key.mappings["c"] = {
     function()
         -- vim.lsp.buf.code_action()
         vim.api.nvim_command("CodeActionMenu")
