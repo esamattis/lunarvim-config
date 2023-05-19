@@ -14,6 +14,7 @@ end
 
 require("user.terminal")
 require("user.commands")
+require("user.lsp")
 
 
 -- if ITERM_PROFILE is set to "dark" then use the dark theme
@@ -86,8 +87,6 @@ lvim.keys.visual_mode["ä"] = "$"
 vim.keymap.set("n", "<space><space>", "*N")
 
 
-
-require("user.lsp")
 
 
 -- toggle recent buffers

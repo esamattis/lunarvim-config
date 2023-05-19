@@ -25,7 +25,7 @@ local tsbuiltin = require("telescope.builtin")
 
 
 add_command({
-    desc         = "Search inside current buffer",
+    desc         = "Fuzzy Current Buffer",
     leader       = "z",
     command_name = "CurrentBufferFuzzyFind",
     cmd          = "Telescope current_buffer_fuzzy_find",
@@ -90,7 +90,7 @@ add_command({
     desc         = "Quick Fix",
     leader       = "c",
     command_name = "QuickFix",
-    cmd          = "CodeActionMenu"
+    cmd          = function() vim.cmd("CodeActionMenu") end,
 })
 
 add_command({
@@ -148,11 +148,20 @@ add_command({
 })
 
 add_command({
-    desc         = "Edit snippets",
+    desc         = "Edit Snippets For this filetype",
     command_name = "EditSnippets",
     cmd          = function()
         -- open snippet file in ~/.config/nvim/snippets/[filetype].snippets
         vim.cmd("edit " .. vim.fn.stdpath("config") .. "/snippets/" .. vim.bo.filetype .. ".snippets")
+    end
+})
+
+add_command({
+    desc         = "Edit LunarVim Config",
+    command_name = "EditLunarVimConfig",
+    cmd          = function()
+        -- open snippet file in ~/.config/nvim/snippets/[filetype].snippets
+        vim.cmd("edit " .. vim.fn.stdpath("config") .. "/config.lua")
     end
 })
 
@@ -203,6 +212,16 @@ add_command({
     command_name = "LiveGrep",
     cmd          = function()
         tsbuiltin.live_grep(ts_layout)
+    end
+})
+
+add_command({
+    desc         = "Live Grep with yanked text",
+    command_name = "LiveGrepYankedText",
+    cmd          = function()
+        tsbuiltin.live_grep({
+            default_text = vim.fn.getreg('"'),
+        })
     end
 })
 
