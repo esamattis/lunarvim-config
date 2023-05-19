@@ -11,6 +11,14 @@ lvim.plugins = {
             })
         end
     },
+    {
+        "folke/todo-comments.nvim",
+        event = "BufRead",
+        config = function()
+            require("todo-comments").setup()
+        end,
+    },
+    { "tpope/vim-surround" },
     { "projekt0n/github-nvim-theme" },
     { "olimorris/onedarkpro.nvim" },
     { "shaunsingh/nord.nvim" },
