@@ -33,6 +33,17 @@ local full_screen = {
 local tsbuiltin = require("telescope.builtin")
 
 
+add_command({
+    desc         = "Coloscheme",
+    command_name = "Coloscheme",
+    cmd          = "Telescope colorscheme",
+})
+
+add_command({
+    desc         = "LSP Restart",
+    command_name = "LspRestart",
+    cmd          = "LspRestart",
+})
 
 add_command({
     desc         = "Fuzzy Current Buffer",
