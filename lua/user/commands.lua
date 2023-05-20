@@ -32,6 +32,26 @@ local full_screen = {
 }
 local tsbuiltin = require("telescope.builtin")
 
+add_command({
+    desc         = "File Delete",
+    command_name = "FileDelete",
+    cmd          = function()
+        local confirm = vim.fn.input("Delete file (y/n): ")
+        if confirm == "y" then
+            vim.cmd("Delete!")
+        end
+    end
+})
+
+add_command({
+    desc         = "File Rename",
+    command_name = "FileRename",
+    cmd          = function()
+        local new_name = vim.fn.input("New name: ")
+        vim.cmd("Rename " .. new_name)
+    end
+})
+
 
 add_command({
     desc         = "Coloscheme",
