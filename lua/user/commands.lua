@@ -115,8 +115,45 @@ add_command({
 add_command({
     desc         = "Git Restore",
     command_name = "GitRestore",
-    cmd          = "Gread"
+    -- cmd          = "Gread"
+    cmd          = function()
+        local confirm = vim.fn.input("Confirm git restore (y/n): ")
+        if confirm == "y" then
+            vim.cmd("Gread")
+        end
+    end
 })
+
+add_command({
+    desc         = "Git Interactive Restore",
+    command_name = "GitInteractiveRestore",
+    cmd          = function()
+        vim.cmd("terminal git checkout -p %")
+    end
+})
+
+add_command({
+    desc         = "Git Diff",
+    command_name = "GitDiff",
+    cmd          = function()
+        vim.cmd("terminal git diff %")
+    end
+})
+
+add_command({
+    desc         = "Git Commit",
+    command_name = "GitCommit",
+    cmd          = function()
+        vim.cmd("terminal git commit -p %")
+    end
+})
+
+add_command({
+    desc         = "Git Add",
+    command_name = "GitAdd",
+    cmd          = "Gwrite"
+})
+
 
 add_command({
     desc         = "Find All Files",
