@@ -1,11 +1,5 @@
 local fns = require("user.functions")
 local function add_command(cmd)
-    if cmd.leader then
-        lvim.builtin.which_key.mappings[cmd.leader] = {
-            cmd.cmd, cmd.desc
-        }
-    end
-
     local command_name = "My" .. cmd.command_name
 
     if cmd.command_name == cmd.cmd then
@@ -14,12 +8,23 @@ local function add_command(cmd)
 
     vim.api.nvim_create_user_command(command_name, cmd.cmd, { nargs = 0 })
 
-    require("command_center").add({
-        {
-            cmd  = "<CMD>:" .. command_name .. "<CR>",
-            desc = cmd.desc .. (cmd.leader and " | <Leader>" .. cmd.leader or ""),
+    local spec = {
+        cmd  = "<CMD>:" .. command_name .. "<CR>",
+        -- desc = cmd.desc .. (cmd.leader and " | <Leader>" .. cmd.leader or ""),
+        desc = cmd.desc,
+    }
+
+    if cmd.leader then
+        -- lvim.builtin.which_key.mappings[cmd.leader] = {}
+        lvim.builtin.which_key.mappings[cmd.leader] = { cmd.cmd, cmd.desc }
+        spec.keys = {
+            { "n", "<Leader>" .. cmd.leader,
+                -- { noremap = true, silent = true }
+            },
         }
-    })
+    end
+
+    require("command_center").add({ spec })
 end
 
 local full_screen = {
