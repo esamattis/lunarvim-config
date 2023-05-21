@@ -86,6 +86,9 @@ lvim.keys.visual_mode["ä"] = "$"
 -- quick search with word under the cursor
 vim.keymap.set("n", "<space><space>", "*N")
 
+lvim.builtin.which_key.mappings["j"] = {
+    "'", "Jump to mark"
+}
 
 
 
