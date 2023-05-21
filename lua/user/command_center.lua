@@ -1,16 +1,3 @@
-local ts_layout = {
-    layout_strategy = 'vertical', layout_config = { width = 0.8, height = 0.8 }
-}
-local tsbuiltin = require("telescope.builtin")
-
-lvim.builtin.which_key.mappings["a"] = {
-    "<CMD>CommandCenter<cr>", "Open command center"
-}
-
-lvim.builtin.which_key.vmappings["a"] = {
-    "<CMD>CommandCenter<cr>", "Open command center"
-}
-
 -- local fns = require("user.functions")
 
 -- -- bind <leader>a to visual mode

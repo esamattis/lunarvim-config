@@ -1,4 +1,37 @@
 local fns = require("user.functions")
+
+local full_screen = {
+    layout_strategy = 'vertical', layout_config = { width = 0.99, height = 0.99 }
+}
+
+local tsbuiltin = require("telescope.builtin")
+
+local source_mode = "normal"
+
+
+lvim.builtin.which_key.mappings["a"] = {
+    function()
+        source_mode = "normal"
+        vim.api.nvim_input("<esc><CMD>CommandCenter<cr>")
+        -- vim.api.nvim_input("<esc>")
+        -- vim.api.nvim_input("<esc>")
+        -- vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<esc>", true, true, true), "n", true)
+        -- vim.cmd("CommandCenter")
+    end, "Open command center"
+}
+
+
+lvim.builtin.which_key.vmappings["a"] = {
+    function()
+        source_mode = "visual"
+        vim.api.nvim_input("<esc><CMD>CommandCenter<cr>")
+        -- vim.api.nvim_input("<esc>")
+        -- vim.api.nvim_input("<esc>")
+        -- vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<esc>", true, true, true), "n", true)
+        -- vim.cmd("CommandCenter")
+    end, "Open command center"
+}
+
 local function add_command(cmd)
     local command_name = "My" .. cmd.command_name
 
@@ -27,10 +60,6 @@ local function add_command(cmd)
     require("command_center").add({ spec })
 end
 
-local full_screen = {
-    layout_strategy = 'vertical', layout_config = { width = 0.99, height = 0.99 }
-}
-local tsbuiltin = require("telescope.builtin")
 
 add_command({
     desc         = "Kill All Terminal Buffers",
@@ -223,6 +252,14 @@ add_command({
     command_name = "GitCommit",
     cmd          = function()
         vim.cmd("terminal git commit -p %")
+    end
+})
+
+add_command({
+    desc         = "Git Commit All",
+    command_name = "GitCommit",
+    cmd          = function()
+        vim.cmd("terminal git c")
     end
 })
 
@@ -431,7 +468,23 @@ add_command({
 add_command({
     desc = "Open in GitHub",
     command_name = "OpenInGHFile",
-    cmd = "OpenInGHFile"
+    cmd = function()
+        if source_mode == "visual" then
+            vim.cmd("normal gv")
+            local visual_start = vim.fn.getpos("'<")
+            local visual_end = vim.fn.getpos("'>")
+
+            print("Opening lines " .. visual_start[2] .. " to " .. visual_end[2] .. " in GitHub")
+            require("openingh").open_file(visual_start[2], visual_end[2])
+        else
+            print("Opening file in GitHub")
+            require("openingh").open_file()
+        end
+
+        -- local line = vim.fn.line(".")
+        -- print("Opening line " .. line .. " in GitHub")
+        -- require("openingh").open_file(line, line)
+    end
 })
 
 add_command({
