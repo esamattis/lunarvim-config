@@ -131,10 +131,13 @@ add_command({
 })
 
 add_command({
-    desc         = "Quick Fix",
+    desc         = "Code Actions",
     leader       = "c",
-    command_name = "QuickFix",
-    cmd          = function() vim.cmd("CodeActionMenu") end,
+    command_name = "CodeActions",
+    cmd          = function()
+        print("Loading actions...")
+        vim.lsp.buf.code_action()
+    end,
 })
 
 add_command({
@@ -144,8 +147,8 @@ add_command({
 })
 
 add_command({
-    desc         = "Git Restore",
-    command_name = "GitRestore",
+    desc         = "Git Restore File",
+    command_name = "GitRestoreFile",
     -- cmd          = "Gread"
     cmd          = function()
         local confirm = vim.fn.input("Confirm git restore (y/n): ")
@@ -273,14 +276,14 @@ add_command({
     end
 })
 
-add_command({
-    desc         = "Git revert selected range",
-    command_name = "GitRevertSelectedRange",
-    cmd          = function()
-        vim.cmd("normal gv")
-        vim.cmd("Gitsigns reset_hunk")
-    end
-})
+-- add_command({
+--     desc         = "Git revert selected range",
+--     command_name = "GitRevertSelectedRange",
+--     cmd          = function()
+--         vim.cmd("normal gv")
+--         vim.cmd("Gitsigns reset_hunk")
+--     end
+-- })
 
 add_command({
     desc         = "Git reset hunk",

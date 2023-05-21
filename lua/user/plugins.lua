@@ -40,8 +40,22 @@ return {
         config = function() require('guess-indent').setup {} end,
     },
     {
-        'weilbith/nvim-code-action-menu',
-        cmd = 'CodeActionMenu',
+        'nvim-telescope/telescope-ui-select.nvim',
+        config = function()
+            -- This is your opts table
+            require("telescope").setup {
+                extensions = {
+                    ["ui-select"] = {
+                        require("telescope.themes").get_dropdown {}
+                    }
+                }
+            }
+            require("telescope").load_extension("ui-select")
+        end
     }
+    -- {
+    --     'weilbith/nvim-code-action-menu',
+    --     cmd = 'CodeActionMenu',
+    -- }
 
 }

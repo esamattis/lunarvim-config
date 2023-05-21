@@ -7,13 +7,19 @@ lvim.builtin.which_key.mappings["a"] = {
     "<CMD>CommandCenter<cr>", "Open command center"
 }
 
+lvim.builtin.which_key.vmappings["a"] = {
+    "<CMD>CommandCenter<cr>", "Open command center"
+}
 
-local fns = require("user.functions")
+-- local fns = require("user.functions")
 
--- bind <leader>a to visual mode
-vim.keymap.set("v", "<C-a>", function()
-    print("wat: " .. fns.get_visual_selection())
-end)
+-- -- bind <leader>a to visual mode
+-- -- vim.keymap.set("v", "<C-a>", function()
+-- vim.keymap.set("v", "<Leader>a", function()
+--     -- vim.cmd("normal")
+--     vim.cmd("CommandCenter")
+--     -- vim.cmd("normal gv")
+-- end)
 
 vim.api.nvim_create_user_command(
     'ErrorList',
