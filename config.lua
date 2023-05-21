@@ -1,5 +1,6 @@
 reload("user.options")
 
+lvim.builtin.bufferline.active = false
 
 lvim.plugins = {
     require("user.command_center"),
