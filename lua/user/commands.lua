@@ -13,10 +13,6 @@ lvim.builtin.which_key.mappings["a"] = {
     function()
         source_mode = "normal"
         vim.api.nvim_input("<esc><CMD>CommandCenter<cr>")
-        -- vim.api.nvim_input("<esc>")
-        -- vim.api.nvim_input("<esc>")
-        -- vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<esc>", true, true, true), "n", true)
-        -- vim.cmd("CommandCenter")
     end, "Open command center"
 }
 
@@ -25,10 +21,6 @@ lvim.builtin.which_key.vmappings["a"] = {
     function()
         source_mode = "visual"
         vim.api.nvim_input("<esc><CMD>CommandCenter<cr>")
-        -- vim.api.nvim_input("<esc>")
-        -- vim.api.nvim_input("<esc>")
-        -- vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<esc>", true, true, true), "n", true)
-        -- vim.cmd("CommandCenter")
     end, "Open command center"
 }
 
@@ -248,7 +240,7 @@ add_command({
 })
 
 add_command({
-    desc         = "Git Commit",
+    desc         = "Git Commit this file",
     command_name = "GitCommit",
     cmd          = function()
         vim.cmd("terminal git commit -p %")
