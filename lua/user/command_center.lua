@@ -21,13 +21,6 @@ lvim.builtin.which_key.vmappings["a"] = {
 --     -- vim.cmd("normal gv")
 -- end)
 
-vim.api.nvim_create_user_command(
-    'ErrorList',
-    function()
-        tsbuiltin.diagnostics(ts_layout)
-    end,
-    { nargs = 0 }
-)
 
 return {
     "FeiyouG/command_center.nvim",
