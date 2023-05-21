@@ -33,6 +33,20 @@ local full_screen = {
 local tsbuiltin = require("telescope.builtin")
 
 add_command({
+    desc         = "Kill All Terminal Buffers",
+    command_name = "KillAllTerminalBuffers",
+    cmd          = function()
+        local terminal_bufs = vim.tbl_filter(function(buf)
+            return vim.bo[buf].buftype == "terminal"
+        end, vim.api.nvim_list_bufs())
+
+        for _, buf in ipairs(terminal_bufs) do
+            vim.api.nvim_buf_delete(buf, { force = true })
+        end
+    end
+})
+
+add_command({
     desc         = "File Delete",
     command_name = "FileDelete",
     cmd          = function()
