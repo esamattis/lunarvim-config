@@ -273,6 +273,51 @@ add_command({
     end
 })
 
+add_command({
+    desc         = "Git revert selected range",
+    command_name = "GitRevertSelectedRange",
+    cmd          = function()
+        vim.cmd("normal gv")
+        vim.cmd("Gitsigns reset_hunk")
+    end
+})
+
+add_command({
+    desc         = "Git reset hunk",
+    command_name = "GitResetHunk",
+    leader       = "gr",
+    cmd          = function()
+        vim.cmd("Gitsigns reset_hunk")
+    end
+})
+
+add_command({
+    desc         = "Git next hunk",
+    leader       = "gj",
+    command_name = "GitNextHunk",
+    cmd          = function()
+        vim.cmd("Gitsigns next_hunk")
+    end
+})
+
+add_command({
+    desc         = "Git previous hunk",
+    leader       = "gk",
+    command_name = "GitPreviousHunk",
+    cmd          = function()
+        vim.cmd("Gitsigns prev_hunk")
+    end
+})
+
+add_command({
+    desc         = "Git preview hunk",
+    leader       = "gp",
+    command_name = "GitPreviewHunk",
+    cmd          = function()
+        vim.cmd("Gitsigns preview_hunk")
+    end
+})
+
 local diagnostics_active = true
 add_command({
     desc = "Toggle Virtual Text Diagnostics",
