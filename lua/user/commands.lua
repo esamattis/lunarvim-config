@@ -179,9 +179,15 @@ add_command({
 })
 
 add_command({
-    desc         = "Toggle Copilot",
-    command_name = "ToggleCopilot",
+    desc         = "Toggle Copilot Active",
+    command_name = "ToggleCopilotActive",
     cmd          = "Copilot toggle"
+})
+
+add_command({
+    desc         = "Open Copilot Panel",
+    command_name = "OpenCopilotPanel",
+    cmd          = "Copilot panel"
 })
 
 add_command({
