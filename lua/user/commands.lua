@@ -131,6 +131,22 @@ add_command({
 })
 
 add_command({
+    desc         = "Marks",
+    command_name = "Marks",
+    cmd          = function()
+        vim.cmd("Telescope marks")
+    end,
+})
+
+add_command({
+    desc         = "Clear All Makrs",
+    command_name = "ClearAllMarks",
+    cmd          = function()
+        vim.cmd("delmarks! | delmarks A-Z0-9")
+    end,
+})
+
+add_command({
     desc         = "Code Actions",
     leader       = "c",
     command_name = "CodeActions",
