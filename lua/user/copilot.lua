@@ -5,6 +5,10 @@
 --     -- require("copilot.suggestion").accept()
 -- end)
 
+lvim.builtin.cmp.mapping["<C-Space>"] = function()
+    require("copilot.suggestion").accept()
+end
+
 return {
     "zbirenbaum/copilot.lua",
     config = function()
@@ -13,6 +17,7 @@ return {
                 auto_trigger = true,
                 keymap = {
                     accept = "<M-i>",
+                    -- accept = "<C-Space>",
                     accept_word = false,
                     accept_line = false,
                     next = "<M-n>",
