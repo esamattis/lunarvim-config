@@ -259,6 +259,20 @@ add_command({
     end
 })
 
+add_command({
+    desc         = "Select Select Terminal",
+    leader       = "B",
+    command_name = "SelectTerminal",
+    cmd          = function()
+        tsbuiltin.buffers({
+            initial_mode = "normal",
+            sort_mru = true,
+            ignore_current_buffer = true,
+            default_text = "term://"
+        })
+    end
+})
+
 local diagnostics_active = true
 add_command({
     desc = "Toggle Virtual Text Diagnostics",
@@ -326,6 +340,25 @@ add_command({
     desc = "Open in GitHub",
     command_name = "OpenInGHFile",
     cmd = "OpenInGHFile"
+})
+
+add_command({
+    desc         = "Horizontal Terminal",
+    command_name = "HorizontalTerminal",
+    leader       = "s",
+    cmd          = function()
+        vim.cmd("split")
+        vim.cmd("resize 20")
+
+        -- find existing terminal buffer
+        local term_bufnr = vim.fn.bufnr("term://*")
+
+        if term_bufnr == -1 then
+            vim.cmd("term")
+        else
+            vim.cmd("buffer " .. term_bufnr)
+        end
+    end
 })
 
 
