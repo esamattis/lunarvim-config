@@ -90,6 +90,14 @@ add_command({
 })
 
 add_command({
+    desc         = "Show Key Mappings",
+    command_name = "ShowKeyMappings",
+    cmd          = function()
+        tsbuiltin.keymaps(full_screen)
+    end,
+})
+
+add_command({
     desc         = "Show Diagnostics",
     leader       = "t",
     command_name = "ShowDiagnostics",
