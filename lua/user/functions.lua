@@ -1,5 +1,8 @@
 local fns = {}
 
+function fns.type_keys(keys)
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(keys, true, true, true), 'n', true)
+end
 
 function fns.get_visual_selection()
     -- Yank current visual selection into the 'v' register

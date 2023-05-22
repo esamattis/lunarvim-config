@@ -83,6 +83,20 @@ lvim.keys.normal_mode["ä"] = "$"
 lvim.keys.visual_mode["ö"] = "^"
 lvim.keys.visual_mode["ä"] = "$"
 
+-- maximize in terminal mode
+vim.keymap.set({ "t", "x" }, "<m-o>", "<C-\\><C-n><C-w>_i")
+vim.keymap.set({ "n", "x" }, "<m-o>", "<C-w>_")
+vim.keymap.set({ "i", "x" }, "<m-o>", "<Esc><C-w>_i")
+
+-- balance splits
+vim.keymap.set({ "t", "x" }, "<m-O>", "<C-\\><C-n><C-w>=i")
+vim.keymap.set({ "n", "x" }, "<m-O>", "<C-w>=")
+vim.keymap.set({ "i", "x" }, "<m-O>", "<esc><C-w>=i")
+vim.keymap.set({ "v", "x" }, "<m-O>", "<C-w>=")
+
+
+-- exit from terminal mode
+vim.keymap.set({ "t", "x" }, "<m-n>", "<C-\\><C-n>")
 
 -- quick search with word under the cursor
 vim.keymap.set("n", "<space><space>", "*N")

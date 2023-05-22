@@ -102,11 +102,12 @@ add_command({
 
 add_command({
     desc         = "Fuzzy Current Buffer",
-    leader       = "z",
+    leader       = "i",
     command_name = "CurrentBufferFuzzyFind",
     -- cmd          = "Telescope current_buffer_fuzzy_find",
     cmd          = function()
-        tsbuiltin.current_buffer_fuzzy_find(full_screen)
+        -- tsbuiltin.current_buffer_fuzzy_find(full_screen)
+        vim.cmd("Telescope current_buffer_fuzzy_find")
     end,
 })
 
@@ -214,7 +215,6 @@ add_command({
 add_command({
     desc         = "Git Restore File",
     command_name = "GitRestoreFile",
-    -- cmd          = "Gread"
     cmd          = function()
         local confirm = vim.fn.input("Confirm git restore (y/n): ")
         if confirm == "y" then

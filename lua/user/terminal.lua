@@ -1,6 +1,3 @@
--- exit terminal insert mode
-vim.keymap.set({ "t", "x" }, "<m-o>", "<C-\\><C-n>")
-
 -- start pop terminal
 lvim.builtin.terminal.open_mapping = "<m-y>"
 
