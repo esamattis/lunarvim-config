@@ -4,7 +4,7 @@ lvim.builtin.terminal.open_mapping = "<m-y>"
 -- Automatically go to insert mode for new terminals
 vim.api.nvim_create_autocmd("TermOpen", {
     callback = function()
-        print("setting insert mode for new termal")
+        print("Setting insert mode for new termal")
         vim.api.nvim_command("startinsert")
     end,
 })
@@ -13,7 +13,7 @@ vim.api.nvim_create_autocmd("TermOpen", {
 vim.api.nvim_create_autocmd("BufEnter", {
     callback = function()
         if vim.bo.buftype == "terminal" then
-            print("setting insert mode for existing termal")
+            print("Setting insert mode for existing terminal")
             vim.api.nvim_command("startinsert")
         end
     end,

@@ -1,4 +1,5 @@
 reload("user.options")
+local fns = require("user.functions")
 
 lvim.builtin.bufferline.active = false
 
