@@ -57,7 +57,6 @@ end)
 
 
 
-lvim.keys.normal_mode["<Leader>w"] = ":wa<cr>"
 
 
 -- join lines with above

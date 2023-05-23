@@ -70,4 +70,10 @@ function fns.search_and_replace_current_buffer(old_string, new_string)
     vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, lines)
 end
 
+-- Delete buffer without closing window
+-- https://stackoverflow.com/a/8585343/153718
+function fns.delete_current_buffer()
+    vim.cmd("b#|bd#")
+end
+
 return fns

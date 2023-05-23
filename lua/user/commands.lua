@@ -49,8 +49,8 @@ local function add_command(cmd)
         })
     end
 
-    if cmd.keys then
-        spec.keys = fns.concat_tables(spec.keys, cmd.keys)
+    if cmd.key then
+        table.insert(spec.keys, cmd.key)
     end
 
     require("command_center").add({ spec })
@@ -77,7 +77,9 @@ add_command({
     cmd          = function()
         local confirm = vim.fn.input("Delete file (y/n): ")
         if confirm == "y" then
-            vim.cmd("Delete!")
+            local file = vim.fn.expand('%')
+            fns.delete_current_buffer()
+            vim.fn.delete(file)
         end
     end
 })
@@ -137,10 +139,17 @@ add_command({
     leader       = "d",
     command_name = "DeleteBuffer",
     cmd          = function()
-        -- Delete buffer without closing window
-        -- https://stackoverflow.com/a/8585343/153718
-        vim.cmd("b#|bd#")
-        -- vim.cmd("bp | sp | bn | bd")
+        fns.delete_current_buffer()
+    end,
+})
+
+add_command({
+    desc         = "Save all buffers",
+    leader       = "w",
+    command_name = "SaveAllBuffers",
+    key          = { "i", "<C-s>" },
+    cmd          = function()
+        vim.cmd("wa")
     end,
 })
 
