@@ -482,13 +482,19 @@ add_command({
         vim.cmd("resize 20")
 
         -- find existing terminal buffer
-        local term_bufnr = vim.fn.bufnr("term://*")
-
-        if term_bufnr == -1 then
-            vim.cmd("term")
-        else
-            vim.cmd("buffer " .. term_bufnr)
+        local buffers = vim.api.nvim_list_bufs()
+        for _, buffer in ipairs(buffers) do
+            if vim.api.nvim_buf_is_valid(buffer) then
+                local buftype = vim.api.nvim_buf_get_option(buffer, "buftype")
+                if buftype == "terminal" then
+                    vim.cmd("buffer " .. buffer)
+                    return
+                end
+            end
         end
+
+        -- otherwise create a new one
+        vim.cmd("term")
     end
 })
 
