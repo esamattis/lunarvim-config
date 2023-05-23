@@ -26,3 +26,5 @@ vim.opt.fixendofline = false
 vim.opt.scrolloff = 20
 
 vim.diagnostic.config({ virtual_text = false, })
+
+vim.opt.autoread = true
