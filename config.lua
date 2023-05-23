@@ -17,6 +17,7 @@ end
 require("user.terminal")
 require("user.commands")
 require("user.lsp")
+require("user.buffer_toggle")
 
 
 -- if ITERM_PROFILE is set to "dark" then use the dark theme
@@ -105,14 +106,3 @@ vim.keymap.set("n", "<space><space>", "*N")
 lvim.builtin.which_key.mappings["j"] = {
     "'", "Jump to mark"
 }
-
-
-
--- toggle recent buffers
-vim.keymap.set('n', ',m',
-    function()
-        require("telescope.builtin").buffers({
-            sort_mru = true,
-            ignore_current_buffer = true
-        })
-    end)
