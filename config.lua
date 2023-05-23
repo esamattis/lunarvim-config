@@ -66,7 +66,6 @@ lvim.keys.normal_mode["K"] = "kJ"
 
 
 
-lvim.keys.normal_mode["<Leader>d"] = ":bd!<cr>"
 lvim.keys.normal_mode["<Leader>o"] = ":only<cr>"
 
 lvim.keys.normal_mode["gh"] = ":lua vim.lsp.buf.hover()<cr>"

@@ -37,16 +37,20 @@ local function add_command(cmd)
         cmd  = "<CMD>:" .. command_name .. "<CR>",
         -- desc = cmd.desc .. (cmd.leader and " | <Leader>" .. cmd.leader or ""),
         desc = cmd.desc,
+        keys = {}
     }
 
     if cmd.leader then
         -- lvim.builtin.which_key.mappings[cmd.leader] = {}
         lvim.builtin.which_key.mappings[cmd.leader] = { cmd.cmd, cmd.desc }
-        spec.keys = {
-            { "n", "<Leader>" .. cmd.leader,
-                -- { noremap = true, silent = true }
-            },
-        }
+        table.insert(spec.keys, {
+            "n", "<Leader>" .. cmd.leader,
+            { noremap = true, silent = true }
+        })
+    end
+
+    if cmd.keys then
+        spec.keys = fns.concat_tables(spec.keys, cmd.keys)
     end
 
     require("command_center").add({ spec })
@@ -128,6 +132,17 @@ add_command({
     end,
 })
 
+add_command({
+    desc         = "Delete Buffer",
+    leader       = "d",
+    command_name = "DeleteBuffer",
+    cmd          = function()
+        -- Delete buffer without closing window
+        -- https://stackoverflow.com/a/8585343/153718
+        vim.cmd("b#|bd#")
+        -- vim.cmd("bp | sp | bn | bd")
+    end,
+})
 
 
 add_command({
