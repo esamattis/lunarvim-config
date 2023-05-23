@@ -400,16 +400,10 @@ add_command({
     leader = "E",
     command_name = "ToggleVirtualTextDiagnostics",
     cmd = function()
-        if diagnostics_active then
-            vim.diagnostic.config({
-                virtual_text = false,
-            })
-            diagnostics_active = false
+        if vim.diagnostic.config().virtual_text then
+            vim.diagnostic.config({ virtual_text = false, })
         else
-            vim.diagnostic.config({
-                virtual_text = true,
-            })
-            diagnostics_active = true
+            vim.diagnostic.config({ virtual_text = true, })
         end
     end
 })
