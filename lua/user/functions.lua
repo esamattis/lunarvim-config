@@ -13,6 +13,15 @@ function fns.get_visual_selection()
     return vim.fn.getreg('v')
 end
 
+function fns.remove_value(target, value)
+    for i, v in ipairs(target) do
+        if v == value then
+            table.remove(target, i)
+            return
+        end
+    end
+end
+
 function fns.concat_tables(a, b)
     local result = {}
 
