@@ -164,6 +164,26 @@ add_command({
 })
 
 add_command({
+    desc         = "Go to definition",
+    -- leader       = "R",
+    command_name = "GoToDefinition",
+    key          = { "n", "gd" },
+    cmd          = function()
+        vim.lsp.buf.definition()
+    end,
+})
+
+-- add_command({
+--     desc         = "Go Back",
+--     -- leader       = "R",
+--     command_name = "GoToDefinition",
+--     key          = { "n", "gb" },
+--     cmd          = function()
+--         fns.type_keys("<C-o>")
+--     end,
+-- })
+
+add_command({
     desc         = "Rename Symbol",
     leader       = "r",
     command_name = "RenameSymbol",
