@@ -19,6 +19,12 @@ vim.api.nvim_create_autocmd("BufEnter", {
     end,
 })
 
+vim.api.nvim_create_autocmd("TermOpen", {
+    callback = function()
+        vim.cmd("setlocal nonumber")
+    end,
+})
+
 local function bind_navigation(key)
     vim.keymap.set({ "t", "x" }, "<m-" .. key .. ">", function()
         vim.api.nvim_command("stopinsert")
