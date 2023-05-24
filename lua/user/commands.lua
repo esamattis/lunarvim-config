@@ -538,3 +538,19 @@ add_command({
         fns.search_and_replace_current_buffer(search, replace)
     end,
 })
+
+add_command({
+    desc         = "Make current file executable",
+    command_name = "MakeFileExecutable",
+    cmd          = function()
+        vim.cmd("silent !chmod +x %")
+    end
+})
+
+add_command({
+    desc         = "Select filetype",
+    command_name = "SelectFileType",
+    cmd          = function()
+        vim.cmd("Telescope filetypes")
+    end
+})
