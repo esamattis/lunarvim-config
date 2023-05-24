@@ -189,13 +189,28 @@ add_command({
     cmd          = "NvimTreeToggle",
 })
 
+
 add_command({
-    desc         = "Copy default register to system clipboard",
-    command_name = "CopyDefaultRegisterToSystemClipboard",
+    desc         = "Copy to system clipboard",
+    command_name = "CopyToSystemClipboard",
+    key          = { "v", "<M-c>" },
     cmd          = function()
-        local register_content = vim.fn.getreg('"')
-        vim.fn.setreg('+', register_content)
-    end,
+        if vim.api.nvim_get_mode().mode == "v" or vim.api.nvim_get_mode().mode == "V" or vim.api.nvim_get_mode().mode == "^v" then
+            vim.cmd("normal y")
+            local register_content = vim.fn.getreg('"')
+            vim.fn.setreg('+', register_content)
+            print("Copied visual selection to system clipboard")
+        elseif source_mode == "visual" then
+            vim.cmd("normal gvy")
+            local register_content = vim.fn.getreg('"')
+            vim.fn.setreg('+', register_content)
+            print("Copied visual selection to system clipboard")
+        else
+            local register_content = vim.fn.getreg('"')
+            vim.fn.setreg('+', register_content)
+            print("Copied default register content to system clipboard")
+        end
+    end
 })
 
 add_command({
