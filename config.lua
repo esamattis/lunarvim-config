@@ -50,6 +50,11 @@ vim.keymap.set("i", "<S-Tab>", "<C-V><Tab>")
 
 
 
+-- Better project root detection for pnpm monorepos
+if fns.is_pnpm_monorepo() then
+    lvim.builtin.project.patterns = { ">packages", }
+end
+
 -- old leader
 vim.keymap.set("n", ",", function()
     print("not in use!!!!!")

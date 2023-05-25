@@ -76,4 +76,18 @@ function fns.delete_current_buffer()
     vim.cmd("b#|bd#")
 end
 
+function fns.is_pnpm_monorepo()
+    local root_dir = require("null-ls.utils").root_pattern("pnpm-lock.yaml")
+    local root = root_dir(vim.fn.expand("%:p:h"))
+
+    if root == nil then
+        return false
+    end
+
+    local pnpm_lock = root .. "/pnpm-lock.yaml"
+    local pnpm_lock_exists = vim.fn.filereadable(pnpm_lock) == 1
+
+    return pnpm_lock_exists
+end
+
 return fns
