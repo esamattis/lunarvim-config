@@ -72,6 +72,21 @@ add_command({
 })
 
 add_command({
+    desc         = "Close all other buffers",
+    command_name = "CloseAllOtherBuffers",
+    cmd          = function()
+        local terminal_bufs = vim.tbl_filter(function(buf)
+            local current_buf = vim.fn.bufnr()
+            return current_buf ~= buf
+        end, vim.api.nvim_list_bufs())
+
+        for _, buf in ipairs(terminal_bufs) do
+            vim.api.nvim_buf_delete(buf, { force = true })
+        end
+    end
+})
+
+add_command({
     desc         = "File Delete",
     command_name = "FileDelete",
     cmd          = function()
@@ -104,6 +119,12 @@ add_command({
     desc         = "LSP Restart",
     command_name = "LspRestart",
     cmd          = "LspRestart",
+})
+
+add_command({
+    desc         = "LSP Info",
+    command_name = "LspInfo",
+    cmd          = "LspInfo",
 })
 
 add_command({
