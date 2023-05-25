@@ -53,6 +53,7 @@ local function plain_replace(text, search, replacement)
     return result
 end
 
+
 function fns.search_and_replace_current_buffer(old_string, new_string)
     -- Get the current buffer number
     local bufnr = vim.api.nvim_get_current_buf()

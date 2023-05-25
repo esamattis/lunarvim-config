@@ -1,11 +1,14 @@
-local fns = require("user.functions")
+local fns         = require("user.functions")
 
 -- start pop terminal
-lvim.builtin.terminal.open_mapping = "<m-y>"
--- fns.keymap_all("<M-y>", function()
---     vim.api.nvim_command("stopinsert")
---     vim.cmd("ToggleTerm")
--- end)
+-- lvim.builtin.terminal.open_mapping = "<m-y>"
+--
+local Terminal    = require('toggleterm.terminal').Terminal
+local popterminal = Terminal:new({ hidden = true, direction = "float" })
+
+fns.keymap_all("<M-y>", function()
+    popterminal:toggle()
+end)
 
 -- exit from terminal mode
 vim.keymap.set({ "t", "x" }, "<m-n>", "<C-\\><C-n>")

@@ -567,6 +567,12 @@ add_command({
     leader       = "s",
     key          = { "t", "<M-s>" },
     cmd          = function()
+        local current_buffer = vim.api.nvim_get_current_buf()
+        local current_buffer_name = vim.api.nvim_buf_get_name(current_buffer)
+        if string.find(current_buffer_name, "toggleterm#") then
+            return
+        end
+
         if vim.bo.buftype == "terminal" then
             vim.cmd("vsplit")
             vim.cmd("term")
@@ -582,7 +588,9 @@ add_command({
         for _, buffer in ipairs(buffers) do
             if vim.api.nvim_buf_is_valid(buffer) then
                 local buftype = vim.api.nvim_buf_get_option(buffer, "buftype")
-                if buftype == "terminal" then
+                local name = vim.api.nvim_buf_get_name(buffer)
+
+                if buftype == "terminal" and not string.find(name, "#toggleterm#") then
                     vim.cmd("buffer " .. buffer)
                     return
                 end
