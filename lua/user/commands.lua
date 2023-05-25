@@ -17,6 +17,13 @@ lvim.builtin.which_key.mappings["a"] = {
 }
 
 
+vim.keymap.set({ "t", "x" }, "<m-a>", function()
+    source_mode = "terminal"
+    vim.api.nvim_command("stopinsert")
+    vim.api.nvim_input("<esc><CMD>CommandCenter<cr>")
+end)
+
+
 lvim.builtin.which_key.vmappings["a"] = {
     function()
         source_mode = "visual"
@@ -554,10 +561,18 @@ add_command({
 })
 
 add_command({
-    desc         = "Horizontal Terminal",
-    command_name = "HorizontalTerminal",
+    desc         = "Terminal Split",
+    command_name = "TerminalSplit",
     leader       = "s",
+    key          = { "t", "<M-s>" },
     cmd          = function()
+        if vim.bo.buftype == "terminal" then
+            vim.cmd("vsplit")
+            vim.cmd("term")
+            return
+        end
+
+
         vim.cmd("split")
         vim.cmd("resize 20")
 
