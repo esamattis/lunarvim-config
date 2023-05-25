@@ -619,6 +619,24 @@ add_command({
 })
 
 add_command({
+    desc         = "Force prettier",
+    command_name = "ForcePrettier",
+
+    cmd          = function()
+        vim.cmd("silent !prettier --write %")
+    end
+})
+
+add_command({
+    desc         = "Save without formatting",
+    command_name = "SaveWithoutFormatting",
+
+    cmd          = function()
+        vim.cmd("noautocmd w")
+    end
+})
+
+add_command({
     desc         = "Select filetype",
     command_name = "SelectFileType",
     cmd          = function()
