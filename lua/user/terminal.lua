@@ -1,5 +1,14 @@
+local fns = require("user.functions")
+
 -- start pop terminal
 lvim.builtin.terminal.open_mapping = "<m-y>"
+-- fns.keymap_all("<M-y>", function()
+--     vim.api.nvim_command("stopinsert")
+--     vim.cmd("ToggleTerm")
+-- end)
+
+-- exit from terminal mode
+vim.keymap.set({ "t", "x" }, "<m-n>", "<C-\\><C-n>")
 
 -- Automatically go to insert mode for new terminals
 vim.api.nvim_create_autocmd("TermOpen", {
@@ -25,21 +34,22 @@ vim.api.nvim_create_autocmd("TermOpen", {
     end,
 })
 
-local function bind_navigation(key)
-    vim.keymap.set({ "t", "x" }, "<m-" .. key .. ">", function()
-        vim.api.nvim_command("stopinsert")
-        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-w>" .. key, true, true, true), "n", true)
-    end)
+fns.keymap_all("<M-j>", function()
+    vim.api.nvim_command("stopinsert")
+    fns.type_keys("<C-w>j")
+end)
 
-    vim.keymap.set({ "i", "x" }, "<m-" .. key .. ">", function()
-        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-w>" .. key, true, true, true), "n", true)
-    end)
-    vim.keymap.set({ "n", "x" }, "<m-" .. key .. ">", function()
-        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-w>" .. key, true, true, true), "n", true)
-    end)
-end
+fns.keymap_all("<M-k>", function()
+    vim.api.nvim_command("stopinsert")
+    fns.type_keys("<C-w>k")
+end)
 
-bind_navigation("h")
-bind_navigation("j")
-bind_navigation("k")
-bind_navigation("l")
+fns.keymap_all("<M-h>", function()
+    vim.api.nvim_command("stopinsert")
+    fns.type_keys("<C-w>h")
+end)
+
+fns.keymap_all("<M-l>", function()
+    vim.api.nvim_command("stopinsert")
+    fns.type_keys("<C-w>l")
+end)

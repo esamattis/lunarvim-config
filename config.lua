@@ -29,14 +29,10 @@ end
 
 
 -- always exit vim no matter what with <m-x>
-local function always_exit()
+fns.keymap_all("<m-x>", function()
     vim.api.nvim_command("stopinsert")
     vim.api.nvim_command("qa!")
-end
-vim.keymap.set("i", "<m-x>", always_exit)
-vim.keymap.set("n", "<m-x>", always_exit)
-vim.keymap.set("t", "<m-x>", always_exit)
-
+end)
 
 -- split resize
 vim.keymap.set("n", "<C-j>", "2<c-w>+")
@@ -100,8 +96,6 @@ vim.keymap.set({ "i", "x" }, "<m-O>", "<esc><C-w>=i")
 vim.keymap.set({ "v", "x" }, "<m-O>", "<C-w>=")
 
 
--- exit from terminal mode
-vim.keymap.set({ "t", "x" }, "<m-n>", "<C-\\><C-n>")
 
 -- quick search with word under the cursor
 vim.keymap.set("n", "<space><space>", "*N")

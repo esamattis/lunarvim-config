@@ -90,4 +90,23 @@ function fns.is_pnpm_monorepo()
     return pnpm_lock_exists
 end
 
+-- Add key binding for all modes
+function fns.keymap_all(key, callback)
+    vim.keymap.set({ "t", "x" }, key, function()
+        callback("terminal")
+    end)
+
+    vim.keymap.set({ "i", "x" }, key, function()
+        callback("insert")
+    end)
+
+    vim.keymap.set({ "n", "x" }, key, function()
+        callback("normal")
+    end)
+
+    vim.keymap.set({ "v", "x" }, key, function()
+        callback("visual")
+    end)
+end
+
 return fns

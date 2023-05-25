@@ -17,9 +17,10 @@ lvim.builtin.which_key.mappings["a"] = {
 }
 
 
-vim.keymap.set({ "t", "x" }, "<m-a>", function()
-    source_mode = "terminal"
-    vim.api.nvim_command("stopinsert")
+fns.keymap_all("<m-a>", function(mode)
+    if mode ~= "normal" then
+        vim.api.nvim_command("stopinsert")
+    end
     vim.api.nvim_input("<esc><CMD>CommandCenter<cr>")
 end)
 
