@@ -110,4 +110,24 @@ function fns.keymap_all(key, callback)
     end)
 end
 
+function fns.log(...)
+    local args = { ... }
+    local home = os.getenv("HOME")
+    local f = io.open(home .. "/.config/lvim/debug.log", "a")
+    if f == nil then
+        print("Could not open file ~/.config/lvim/debug.log")
+        return
+    end
+
+    for _, v in ipairs(args) do
+        if type(v) == "string" then
+            f:write(v)
+        else
+            f:write(vim.inspect(v))
+        end
+    end
+    f:write("\n")
+    f:close()
+end
+
 return fns
