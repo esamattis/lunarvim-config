@@ -13,6 +13,16 @@ end)
 -- exit from terminal mode
 vim.keymap.set({ "t", "x" }, "<m-n>", "<C-\\><C-n>")
 
+
+-- inser Control-C from normal mode too when a terminal buffer is active
+vim.keymap.set({ "n", "x" }, "<C-c>", function()
+    if vim.bo.buftype == "terminal" then
+        vim.api.nvim_command("startinsert")
+        fns.type_keys("<C-c>")
+    end
+end)
+
+
 -- Automatically go to insert mode for new terminals
 vim.api.nvim_create_autocmd("TermOpen", {
     callback = function()
