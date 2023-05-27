@@ -688,3 +688,16 @@ add_command({
         vim.cmd("Telescope filetypes")
     end
 })
+
+add_command({
+    desc         = "Toggle Light and Dark Mode",
+    command_name = "SelectFileType",
+    cmd          = function()
+        local current_color_scheme = vim.g.colors_name
+        if current_color_scheme == "onenord" then
+            vim.cmd("colorscheme tokyonight")
+        else
+            vim.cmd("colorscheme onenord-light")
+        end
+    end
+})
