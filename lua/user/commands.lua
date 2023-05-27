@@ -295,6 +295,7 @@ add_command({
 add_command({
     desc         = "Recent Projects",
     command_name = "RecentProjects",
+    leader       = "p",
     cmd          = function()
         vim.cmd("Telescope projects")
     end,

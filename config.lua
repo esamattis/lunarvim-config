@@ -19,6 +19,7 @@ require("user.terminal")
 require("user.commands")
 require("user.lsp")
 require("user.buffer_toggle")
+require("user.project_chdir")
 
 
 -- if ITERM_PROFILE is set to "dark" then use the dark theme
@@ -69,12 +70,6 @@ vim.keymap.set("n", "<C-h>", "10<c-w><")
 vim.keymap.set("i", "<S-Tab>", "<C-V><Tab>")
 
 
-
--- Better project root detection for pnpm monorepos
--- if fns.is_pnpm_monorepo() then
-lvim.builtin.project.patterns = { ">packages", ".git", "package.json" }
--- end
-lvim.builtin.project.manual_mode = true
 
 -- old leader
 vim.keymap.set("n", ",", function()
