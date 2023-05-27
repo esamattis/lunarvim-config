@@ -603,7 +603,7 @@ add_command({
             return
         end
 
-        -- if a terminal window, exists go to it
+        -- if a terminal window exists just focus it
         local windows = vim.api.nvim_list_wins()
         for _, window in ipairs(windows) do
             local buffer = vim.api.nvim_win_get_buf(window)
@@ -615,7 +615,7 @@ add_command({
         end
 
 
-        -- otherwise create a new window
+        -- otherwise create a new window to bottom of screen
         vim.cmd("botright split")
         vim.cmd("resize 20")
 
