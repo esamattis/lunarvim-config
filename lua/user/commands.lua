@@ -576,10 +576,6 @@ add_command({
             print("Opening file in GitHub")
             require("openingh").open_file()
         end
-
-        -- local line = vim.fn.line(".")
-        -- print("Opening line " .. line .. " in GitHub")
-        -- require("openingh").open_file(line, line)
     end
 })
 

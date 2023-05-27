@@ -91,10 +91,6 @@ local plugins = {
             require("telescope").load_extension("ui-select")
         end
     }
-    -- {
-    --     'weilbith/nvim-code-action-menu',
-    --     cmd = 'CodeActionMenu',
-    -- }
 
 }
 
@@ -110,11 +106,5 @@ if vim.g.neovide then
     })
 end
 
--- if vim.g.neovide or vim.g.goneovim or vim.g.nvui or vim.g.gnvim then
---     require("size-matters").setup({
---         default_mappings = true,
---     })
--- end
---
 
 return plugins
