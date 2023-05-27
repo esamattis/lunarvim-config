@@ -1,4 +1,4 @@
-return {
+local plugins = {
     {
         "folke/todo-comments.nvim",
         event = "BufRead",
@@ -97,3 +97,24 @@ return {
     -- }
 
 }
+
+if vim.g.neovide then
+    table.insert(plugins, {
+        "tenxsoydev/size-matters.nvim",
+        cmd = { "FontSizeUp", "FontSizeDown", "FontReset" },
+        config = function()
+            require("size-matters").setup {
+                default_mappings = false
+            }
+        end
+    })
+end
+
+-- if vim.g.neovide or vim.g.goneovim or vim.g.nvui or vim.g.gnvim then
+--     require("size-matters").setup({
+--         default_mappings = true,
+--     })
+-- end
+--
+
+return plugins
