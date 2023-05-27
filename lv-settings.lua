@@ -2,7 +2,7 @@ lvim.transparent_window = false
 lvim.lazy.opts.install.missing = true
 lvim.lazy.opts.install.colorscheme["1"] = "lunar"
 lvim.lazy.opts.install.colorscheme["2"] = "lunar"
-lvim.lazy.opts.install.colorscheme["3"] = "habamax"
+vim.lazy.opts.install.colorscheme["3"] = "habamax"
 lvim.lazy.opts.install.colorscheme["4"] = "habamax"
 lvim.lazy.opts.root = "/Users/esamatti1/.local/share/lunarvim/site/pack/lazy/opt"
 lvim.lazy.opts.spec["1"]["1"]["1"] = "folke/lazy.nvim"
@@ -755,7 +755,8 @@ lvim.builtin.alpha.dashboard.section.buttons.entries["5"]["2"] = "󰊄  Find Tex
 lvim.builtin.alpha.dashboard.section.buttons.entries["5"]["3"] = "<CMD>Telescope live_grep<CR>"
 lvim.builtin.alpha.dashboard.section.buttons.entries["6"]["1"] = "c"
 lvim.builtin.alpha.dashboard.section.buttons.entries["6"]["2"] = "  Configuration"
-lvim.builtin.alpha.dashboard.section.buttons.entries["6"]["3"] = "<CMD>edit /Users/esamatti1/.config/lvim/config.lua <CR>"
+lvim.builtin.alpha.dashboard.section.buttons.entries["6"]["3"] =
+"<CMD>edit /Users/esamatti1/.config/lvim/config.lua <CR>"
 lvim.builtin.alpha.dashboard.section.buttons.entries["7"]["1"] = "q"
 lvim.builtin.alpha.dashboard.section.buttons.entries["7"]["2"] = "󰅖  Quit"
 lvim.builtin.alpha.dashboard.section.buttons.entries["7"]["3"] = "<CMD>quit<CR>"
@@ -1150,24 +1151,30 @@ lvim.builtin.treesitter.textsubjects.enable = false
 lvim.builtin.treesitter.textsubjects.keymaps[";"] = "textsubjects-big"
 lvim.builtin.treesitter.textsubjects.keymaps["."] = "textsubjects-smart"
 lvim.builtin.treesitter.autotag.enable = false
-lvim.builtin.which_key.mappings.L.l.l["1"] = "<cmd>lua require('lvim.core.terminal').toggle_log_view(vim.lsp.get_log_path())<cr>"
+lvim.builtin.which_key.mappings.L.l.l["1"] =
+"<cmd>lua require('lvim.core.terminal').toggle_log_view(vim.lsp.get_log_path())<cr>"
 lvim.builtin.which_key.mappings.L.l.l["2"] = "view lsp log"
 lvim.builtin.which_key.mappings.L.l.N["1"] = "<cmd>edit $NVIM_LOG_FILE<cr>"
 lvim.builtin.which_key.mappings.L.l.N["2"] = "Open the Neovim logfile"
-lvim.builtin.which_key.mappings.L.l.n["1"] = "<cmd>lua require('lvim.core.terminal').toggle_log_view(os.getenv('NVIM_LOG_FILE'))<cr>"
+lvim.builtin.which_key.mappings.L.l.n["1"] =
+"<cmd>lua require('lvim.core.terminal').toggle_log_view(os.getenv('NVIM_LOG_FILE'))<cr>"
 lvim.builtin.which_key.mappings.L.l.n["2"] = "view neovim log"
 lvim.builtin.which_key.mappings.L.l.L["1"] = "<cmd>lua vim.fn.execute('edit ' .. vim.lsp.get_log_path())<cr>"
 lvim.builtin.which_key.mappings.L.l.L["2"] = "Open the LSP logfile"
-lvim.builtin.which_key.mappings.L.l.D["1"] = "<cmd>lua vim.fn.execute('edit ' .. require('lvim.core.log').get_path())<cr>"
+lvim.builtin.which_key.mappings.L.l.D["1"] =
+"<cmd>lua vim.fn.execute('edit ' .. require('lvim.core.log').get_path())<cr>"
 lvim.builtin.which_key.mappings.L.l.D["2"] = "Open the default logfile"
 lvim.builtin.which_key.mappings.L.l.name = "+logs"
-lvim.builtin.which_key.mappings.L.l.d["1"] = "<cmd>lua require('lvim.core.terminal').toggle_log_view(require('lvim.core.log').get_path())<cr>"
+lvim.builtin.which_key.mappings.L.l.d["1"] =
+"<cmd>lua require('lvim.core.terminal').toggle_log_view(require('lvim.core.log').get_path())<cr>"
 lvim.builtin.which_key.mappings.L.l.d["2"] = "view default log"
-lvim.builtin.which_key.mappings.L.f["1"] = "<cmd>lua require('lvim.core.telescope.custom-finders').find_lunarvim_files()<cr>"
+lvim.builtin.which_key.mappings.L.f["1"] =
+"<cmd>lua require('lvim.core.telescope.custom-finders').find_lunarvim_files()<cr>"
 lvim.builtin.which_key.mappings.L.f["2"] = "Find LunarVim files"
 lvim.builtin.which_key.mappings.L.d["1"] = "<cmd>LvimDocs<cr>"
 lvim.builtin.which_key.mappings.L.d["2"] = "View LunarVim's docs"
-lvim.builtin.which_key.mappings.L.I["1"] = "<cmd>lua require('lvim.core.telescope.custom-finders').view_lunarvim_changelog()<cr>"
+lvim.builtin.which_key.mappings.L.I["1"] =
+"<cmd>lua require('lvim.core.telescope.custom-finders').view_lunarvim_changelog()<cr>"
 lvim.builtin.which_key.mappings.L.I["2"] = "View LunarVim's changelog"
 lvim.builtin.which_key.mappings.L.k["1"] = "<cmd>Telescope keymaps<cr>"
 lvim.builtin.which_key.mappings.L.k["2"] = "View LunarVim's keymappings"
@@ -1177,7 +1184,8 @@ lvim.builtin.which_key.mappings.L.c["1"] = "<cmd>edit /Users/esamatti1/.config/l
 lvim.builtin.which_key.mappings.L.c["2"] = "Edit config.lua"
 lvim.builtin.which_key.mappings.L.r["1"] = "<cmd>LvimReload<cr>"
 lvim.builtin.which_key.mappings.L.r["2"] = "Reload LunarVim's configuration"
-lvim.builtin.which_key.mappings.L.g["1"] = "<cmd>lua require('lvim.core.telescope.custom-finders').grep_lunarvim_files()<cr>"
+lvim.builtin.which_key.mappings.L.g["1"] =
+"<cmd>lua require('lvim.core.telescope.custom-finders').grep_lunarvim_files()<cr>"
 lvim.builtin.which_key.mappings.L.g["2"] = "Grep LunarVim files"
 lvim.builtin.which_key.mappings.L.name = "+LunarVim"
 lvim.builtin.which_key.mappings.L.i["1"] = "<cmd>lua require('lvim.core.info').toggle_popup(vim.bo.filetype)<cr>"
@@ -1336,7 +1344,8 @@ lvim.builtin.which_key.mappings.s.c["1"] = "<cmd>Telescope colorscheme<cr>"
 lvim.builtin.which_key.mappings.s.c["2"] = "Colorscheme"
 lvim.builtin.which_key.mappings.s.b["1"] = "<cmd>Telescope git_branches<cr>"
 lvim.builtin.which_key.mappings.s.b["2"] = "Checkout branch"
-lvim.builtin.which_key.mappings.s.p["1"] = "<cmd>lua require('telescope.builtin').colorscheme({enable_preview = true})<cr>"
+lvim.builtin.which_key.mappings.s.p["1"] =
+"<cmd>lua require('telescope.builtin').colorscheme({enable_preview = true})<cr>"
 lvim.builtin.which_key.mappings.s.p["2"] = "Colorscheme with Preview"
 lvim.builtin.which_key.mappings.s.C["1"] = "<cmd>Telescope commands<cr>"
 lvim.builtin.which_key.mappings.s.C["2"] = "Commands"

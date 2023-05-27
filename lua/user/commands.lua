@@ -17,7 +17,7 @@ lvim.builtin.which_key.mappings["a"] = {
 }
 
 
-fns.keymap_all("<m-a>", function(mode)
+fns.keymap_all(fns.meta_key("a"), function(mode)
     if mode ~= "normal" then
         vim.api.nvim_command("stopinsert")
     end
@@ -246,9 +246,9 @@ add_command({
 
 
 add_command({
-    desc         = "Show File Tree",
-    -- leader       = "n",
-    command_name = "ShowFileTree",
+    desc         = "Toggle File Tree",
+    key          = { "n", "<D-t>" },
+    command_name = "ToggleFileTree",
     cmd          = "NvimTreeToggle",
 })
 

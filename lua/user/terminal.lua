@@ -6,12 +6,12 @@ local fns         = require("user.functions")
 local Terminal    = require('toggleterm.terminal').Terminal
 local popterminal = Terminal:new({ hidden = true, direction = "float" })
 
-fns.keymap_all("<M-y>", function()
+fns.keymap_all(fns.meta_key("y"), function()
     popterminal:toggle()
 end)
 
 -- exit from terminal mode
-vim.keymap.set({ "t", "x" }, "<m-n>", "<C-\\><C-n>")
+vim.keymap.set({ "t", "x" }, fns.meta_key("n"), "<C-\\><C-n>")
 
 
 -- inser Control-C from normal mode too when a terminal buffer is active
@@ -47,22 +47,22 @@ vim.api.nvim_create_autocmd("TermOpen", {
     end,
 })
 
-fns.keymap_all("<M-j>", function()
+fns.keymap_all(fns.meta_key("j"), function()
     vim.api.nvim_command("stopinsert")
     fns.type_keys("<C-w>j")
 end)
 
-fns.keymap_all("<M-k>", function()
+fns.keymap_all(fns.meta_key("k"), function()
     vim.api.nvim_command("stopinsert")
     fns.type_keys("<C-w>k")
 end)
 
-fns.keymap_all("<M-h>", function()
+fns.keymap_all(fns.meta_key("h"), function()
     vim.api.nvim_command("stopinsert")
     fns.type_keys("<C-w>h")
 end)
 
-fns.keymap_all("<M-l>", function()
+fns.keymap_all(fns.meta_key("l"), function()
     vim.api.nvim_command("stopinsert")
     fns.type_keys("<C-w>l")
 end)

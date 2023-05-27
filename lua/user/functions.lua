@@ -110,6 +110,14 @@ function fns.keymap_all(key, callback)
     end)
 end
 
+function fns.meta_key(key)
+    if vim.g.neovide then
+        return "<S-D-" .. key .. ">"
+    else
+        return "<M-" .. key .. ">"
+    end
+end
+
 function fns.log(...)
     local args = { ... }
     local home = os.getenv("HOME")

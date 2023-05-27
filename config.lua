@@ -24,11 +24,11 @@ require("user.buffer_toggle")
 -- if ITERM_PROFILE is set to "dark" then use the dark theme
 if os.getenv("ITERM_PROFILE") == "Light" then
     lvim.colorscheme = "onenord-light"
+else
+    lvim.colorscheme = "tokyonight"
 end
 
-
 if vim.g.neovide then
-    lvim.colorscheme = "tokyonight"
     vim.opt.linespace = 0
     vim.g.neovide_scale_factor = 1.0
     vim.o.guifont = "SauceCodePro Nerd Font:h14"
@@ -72,15 +72,18 @@ vim.keymap.set("i", "<S-Tab>", "<C-V><Tab>")
 
 
 -- Better project root detection for pnpm monorepos
-if fns.is_pnpm_monorepo() then
-    lvim.builtin.project.patterns = { ">packages", }
-end
+-- if fns.is_pnpm_monorepo() then
+lvim.builtin.project.patterns = { ">packages", ".git", "package.json" }
+-- end
+lvim.builtin.project.manual_mode = true
 
 -- old leader
 vim.keymap.set("n", ",", function()
     print("not in use!!!!!")
 end)
 
+
+-- user commad MyDebug
 
 
 
@@ -109,16 +112,11 @@ lvim.keys.normal_mode["ä"] = "$"
 lvim.keys.visual_mode["ö"] = "^"
 lvim.keys.visual_mode["ä"] = "$"
 
--- maximize in terminal mode
-vim.keymap.set({ "t", "x" }, "<m-o>", "<C-\\><C-n><C-w>_i")
-vim.keymap.set({ "n", "x" }, "<m-o>", "<C-w>_")
-vim.keymap.set({ "i", "x" }, "<m-o>", "<Esc><C-w>_i")
+-- maximize split in all modes
+vim.keymap.set({ "t", "x" }, fns.meta_key("o"), "<C-\\><C-n><C-w>_i")
+vim.keymap.set({ "n", "x" }, fns.meta_key("o"), ":only<cr>")
+vim.keymap.set({ "i", "x" }, fns.meta_key("o"), "<esc>:only<cr>")
 
--- balance splits
-vim.keymap.set({ "t", "x" }, "<m-O>", "<C-\\><C-n><C-w>=i")
-vim.keymap.set({ "n", "x" }, "<m-O>", "<C-w>=")
-vim.keymap.set({ "i", "x" }, "<m-O>", "<esc><C-w>=i")
-vim.keymap.set({ "v", "x" }, "<m-O>", "<C-w>=")
 
 
 
@@ -130,7 +128,7 @@ lvim.builtin.which_key.mappings["j"] = {
 }
 
 
-if vim.fn.argc() == 0 then
+if vim.fn.argc() == 0 and vim.g.neovide then
     vim.defer_fn(
         function()
             vim.cmd('Telescope projects')
