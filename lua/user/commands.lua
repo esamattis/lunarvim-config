@@ -271,10 +271,18 @@ add_command({
 })
 
 add_command({
-    desc         = "Clear All Makrs",
+    desc         = "Clear All Marks",
     command_name = "ClearAllMarks",
     cmd          = function()
         vim.cmd("delmarks! | delmarks A-Z0-9")
+    end,
+})
+
+add_command({
+    desc         = "Recent Projects",
+    command_name = "RecentProjects",
+    cmd          = function()
+        vim.cmd("Telescope projects")
     end,
 })
 

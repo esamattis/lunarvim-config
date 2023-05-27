@@ -2,6 +2,7 @@ reload("user.options")
 local fns = require("user.functions")
 
 lvim.builtin.bufferline.active = false
+lvim.builtin.alpha.active = false
 
 lvim.plugins = {
     require("user.command_center"),
@@ -22,7 +23,7 @@ require("user.buffer_toggle")
 
 -- if ITERM_PROFILE is set to "dark" then use the dark theme
 if os.getenv("ITERM_PROFILE") == "Light" then
-    lvim.colorscheme = "github_light"
+    lvim.colorscheme = "onenord-light"
 end
 
 
@@ -35,8 +36,8 @@ fns.keymap_all("<m-x>", function()
 end)
 
 -- split resize
-vim.keymap.set("n", "<C-j>", "2<c-w>+")
-vim.keymap.set("n", "<C-k>", "2<c-w>-")
+vim.keymap.set("n", "<C-j>", "5<c-w>+")
+vim.keymap.set("n", "<C-k>", "5<c-w>-")
 vim.keymap.set("n", "<C-l>", "10<c-w>>")
 vim.keymap.set("n", "<C-h>", "10<c-w><")
 

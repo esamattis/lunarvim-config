@@ -23,7 +23,7 @@ vim.opt.fixendofline = false
 -- lvim.leader = "<Space>"
 --
 
-vim.opt.scrolloff = 20
+vim.opt.scrolloff = 0
 
 vim.diagnostic.config({ virtual_text = false, })
 

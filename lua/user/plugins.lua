@@ -9,12 +9,20 @@ return {
     { "tpope/vim-surround" },
     { "projekt0n/github-nvim-theme" },
     { "olimorris/onedarkpro.nvim" },
+    { "rmehri01/onenord.nvim" },
     { "shaunsingh/nord.nvim" },
     { "nvim-pack/nvim-spectre",     lazy = true },
     { "almo7aya/openingh.nvim",     cmd = { "OpenInGHFile" } },
+    -- {
+    --     "catppuccin/nvim",
+    --     name = "catppuccin"
+    -- },
     {
-        "catppuccin/nvim",
-        name = "catppuccin"
+        "mhanberg/output-panel.nvim",
+        event = "VeryLazy",
+        config = function()
+            require("output_panel").setup()
+        end
     },
     {
         "tpope/vim-fugitive",
