@@ -638,6 +638,26 @@ add_command({
     end
 })
 
+add_command({
+    desc         = "Maximize current window",
+    command_name = "MaximizeWindow",
+    leader       = "m",
+    cmd          = function()
+        if vim.fn.tabpagenr("$") == 1 then
+            vim.cmd("tab split")
+            if vim.bo.buftype == "terminal" then
+                vim.api.nvim_command("startinsert")
+            end
+        else
+            vim.cmd("tabclose")
+        end
+    end,
+})
+
+fns.keymap_all(fns.meta_key("o"), function()
+    vim.cmd("MyMaximizeWindow")
+end)
+
 
 add_command({
     desc         = "Simple Plain Search and Replace",

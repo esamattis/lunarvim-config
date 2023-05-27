@@ -28,3 +28,6 @@ vim.opt.scrolloff = 0
 vim.diagnostic.config({ virtual_text = false, })
 
 vim.opt.autoread = true
+
+
+vim.opt.showtabline = 0

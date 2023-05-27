@@ -112,13 +112,6 @@ lvim.keys.normal_mode["ä"] = "$"
 lvim.keys.visual_mode["ö"] = "^"
 lvim.keys.visual_mode["ä"] = "$"
 
--- maximize split in all modes
-vim.keymap.set({ "t", "x" }, fns.meta_key("o"), "<C-\\><C-n><C-w>_i")
-vim.keymap.set({ "n", "x" }, fns.meta_key("o"), ":only<cr>")
-vim.keymap.set({ "i", "x" }, fns.meta_key("o"), "<esc>:only<cr>")
-
-
-
 
 -- quick search with word under the cursor
 vim.keymap.set("n", "<space><space>", "*N")
