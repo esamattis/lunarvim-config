@@ -66,8 +66,8 @@ end
 
 
 add_command({
-    desc         = "Kill All Terminal Buffers",
-    command_name = "KillAllTerminalBuffers",
+    desc         = "Delete All Terminal Buffers",
+    command_name = "DeleteAllTerminalBuffers",
     cmd          = function()
         local terminal_bufs = vim.tbl_filter(function(buf)
             return vim.bo[buf].buftype == "terminal"
@@ -168,7 +168,11 @@ add_command({
     leader       = "d",
     command_name = "DeleteBuffer",
     cmd          = function()
-        fns.delete_current_buffer()
+        if vim.bo.buftype == "terminal" then
+            vim.cmd("bd!")
+        else
+            fns.delete_current_buffer()
+        end
     end,
 })
 
@@ -575,23 +579,37 @@ add_command({
     leader       = "s",
     key          = { "t", "<M-s>" },
     cmd          = function()
+        -- bail if in toggleterm terminal
         local current_buffer = vim.api.nvim_get_current_buf()
         local current_buffer_name = vim.api.nvim_buf_get_name(current_buffer)
         if string.find(current_buffer_name, "toggleterm#") then
             return
         end
 
+        -- if in terminal already, create vertical terminal
         if vim.bo.buftype == "terminal" then
             vim.cmd("vsplit")
             vim.cmd("term")
             return
         end
 
+        -- if a terminal window, exists go to it
+        local windows = vim.api.nvim_list_wins()
+        for _, window in ipairs(windows) do
+            local buffer = vim.api.nvim_win_get_buf(window)
+            local buftype = vim.api.nvim_buf_get_option(buffer, "buftype")
+            if buftype == "terminal" then
+                vim.api.nvim_set_current_win(window)
+                return
+            end
+        end
 
-        vim.cmd("split")
+
+        -- otherwise create a new window
+        vim.cmd("botright split")
         vim.cmd("resize 20")
 
-        -- find existing terminal buffer
+        -- and open existing terminal from background if it exists
         local buffers = vim.api.nvim_list_bufs()
         for _, buffer in ipairs(buffers) do
             if vim.api.nvim_buf_is_valid(buffer) then
@@ -605,7 +623,7 @@ add_command({
             end
         end
 
-        -- otherwise create a new one
+        -- if not start new terminal
         vim.cmd("term")
     end
 })

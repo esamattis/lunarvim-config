@@ -122,7 +122,9 @@ function fns.log(...)
     for _, v in ipairs(args) do
         if type(v) == "string" then
             f:write(v)
+            f:write(" ")
         else
+            f:write(" ")
             f:write(vim.inspect(v))
         end
     end
