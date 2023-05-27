@@ -66,9 +66,14 @@ end
 
 
 add_command({
-    desc         = "Delete All Terminal Buffers",
-    command_name = "DeleteAllTerminalBuffers",
+    desc         = "Close all terminal buffers",
+    command_name = "CloseAllTerminalBuffers",
     cmd          = function()
+        local confirm = vim.fn.input("Close all terminal buffers (y/n): ")
+        if confirm ~= "y" then
+            return
+        end
+
         local terminal_bufs = vim.tbl_filter(function(buf)
             return vim.bo[buf].buftype == "terminal"
         end, vim.api.nvim_list_bufs())
@@ -83,6 +88,11 @@ add_command({
     desc         = "Close all other buffers",
     command_name = "CloseAllOtherBuffers",
     cmd          = function()
+        local confirm = vim.fn.input("Close all other buffers (y/n): ")
+        if confirm ~= "y" then
+            return
+        end
+
         local terminal_bufs = vim.tbl_filter(function(buf)
             local current_buf = vim.fn.bufnr()
             return current_buf ~= buf
