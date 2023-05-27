@@ -459,14 +459,6 @@ add_command({
     end
 })
 
--- add_command({
---     desc         = "Git revert selected range",
---     command_name = "GitRevertSelectedRange",
---     cmd          = function()
---         vim.cmd("normal gv")
---         vim.cmd("Gitsigns reset_hunk")
---     end
--- })
 
 add_command({
     desc         = "Git reset hunk",
