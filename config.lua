@@ -86,11 +86,9 @@ end)
 
 
 
--- join lines with above
-lvim.lsp.buffer_mappings.normal_mode.K = false
-lvim.keys.normal_mode["K"] = "kJ"
-
-
+-- join current line with the above line
+lvim.lsp.buffer_mappings.normal_mode.K = nil
+vim.keymap.set("n", "K", "kJ", { noremap = true, silent = true })
 
 lvim.keys.normal_mode["<Leader>o"] = ":only<cr>"
 
