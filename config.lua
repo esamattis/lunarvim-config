@@ -22,12 +22,15 @@ require("user.buffer_toggle")
 require("user.project_chdir")
 
 
+
 -- if ITERM_PROFILE is set to "dark" then use the dark theme
 if os.getenv("ITERM_PROFILE") == "Light" then
     lvim.colorscheme = "onenord-light"
 else
     lvim.colorscheme = "tokyonight"
 end
+
+
 
 if vim.g.neovide then
     vim.opt.linespace = 0

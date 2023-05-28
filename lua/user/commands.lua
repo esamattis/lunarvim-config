@@ -727,3 +727,52 @@ add_command({
         end
     end
 })
+
+
+add_command({
+    desc         = "Debug - Breakpoints Clear",
+    command_name = "DebugClearBreakpoints",
+    leader       = "uc",
+    cmd          = function()
+        require('dap').clear_breakpoints()
+    end
+})
+
+add_command({
+    desc         = "Debug - Run",
+    command_name = "DebugStart",
+    leader       = "ur",
+    cmd          = function()
+        require('dap').continue()
+    end
+})
+
+add_command({
+    desc         = "Debug - Step Next Over",
+    command_name = "DebugStepNext",
+    key          = { "n", "<D-n>" },
+    cmd          = function()
+        require('dap').step_over()
+    end
+})
+
+add_command({
+    desc         = "Debug - Step Next Into",
+    command_name = "DebugStepInto",
+    key          = { "n", "<D-m>" },
+    cmd          = function()
+        require('dap').step_into()
+    end
+})
+
+
+add_command({
+    desc         = "Debug - Breakpoint Toggle",
+    command_name = "DebugToggleBreakpoint",
+    leader       = "ub",
+    key          = { "n", "<D-b>" },
+    cmd          = function()
+        vim.cmd("InitDebug")
+        require('dap').toggle_breakpoint()
+    end
+})
