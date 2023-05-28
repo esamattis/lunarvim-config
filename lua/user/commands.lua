@@ -748,6 +748,15 @@ add_command({
 })
 
 add_command({
+    desc         = "Debug - Run to cursor",
+    command_name = "DebugRunToCursor",
+    leader       = "uc",
+    cmd          = function()
+        require('dap').run_to_cursor()
+    end
+})
+
+add_command({
     desc         = "Debug - Step Next Over",
     command_name = "DebugStepNext",
     key          = { "n", "<D-n>" },
