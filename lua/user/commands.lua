@@ -34,10 +34,15 @@ lvim.builtin.which_key.vmappings["a"] = {
 }
 
 local function add_command(cmd)
-    local command_name = "My" .. cmd.command_name
+    local command_name = "CM" .. cmd.command_name
 
     if cmd.command_name == cmd.cmd then
         command_name = cmd.cmd
+    end
+
+    if vim.fn.exists(":CM" .. command_name) == 2 then
+        print("Duplicate command name: " .. command_name)
+        return
     end
 
     vim.api.nvim_create_user_command(command_name, cmd.cmd, { nargs = 0 })
@@ -547,7 +552,7 @@ add_command({
     desc         = "Live Grep",
     command_name = "LiveGrep",
     cmd          = function()
-        tsbuiltin.live_grep(full_screen)
+        tsbuiltin.live_grep()
     end
 })
 
@@ -667,7 +672,7 @@ add_command({
 })
 
 fns.keymap_all(fns.meta_key("o"), function()
-    vim.cmd("MyMaximizeWindow")
+    vim.cmd("CMMaximizeWindow")
 end)
 
 
