@@ -62,6 +62,12 @@ local function add_command(cmd)
         table.insert(spec.keys, cmd.key)
     end
 
+    if cmd.keys then
+        for _, key in ipairs(cmd.keys) do
+            table.insert(spec.keys, key)
+        end
+    end
+
     require("command_center").add({ spec })
 end
 
@@ -783,5 +789,30 @@ add_command({
     cmd          = function()
         vim.cmd("InitDebug")
         require('dap').toggle_breakpoint()
+    end
+})
+
+add_command({
+    desc         = "Reset Terminal",
+    command_name = "ResetTerminal",
+    keys         = {
+        { "n", fns.meta_key("l") },
+        { "i", fns.meta_key("l") }
+    },
+
+    cmd          = function()
+        if vim.bo.buftype ~= "terminal" then
+            return
+        end
+
+
+        vim.opt_local.scrollback = 1
+
+        vim.api.nvim_command("startinsert")
+        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<C-c>', true, false, true), 't', true)
+        vim.api.nvim_feedkeys("reset", 't', false)
+        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<cr>', true, false, true), 't', true)
+
+        vim.opt_local.scrollback = 10000
     end
 })
