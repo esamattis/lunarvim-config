@@ -1,4 +1,5 @@
 local fns = require("user.functions")
+local buffer_select = require("user.buffer_select")
 
 local full_screen = {
     layout_strategy = 'vertical', layout_config = { width = 0.99, height = 0.99 }
@@ -447,10 +448,14 @@ add_command({
     leader       = "b",
     command_name = "SelectBuffer",
     cmd          = function()
-        tsbuiltin.buffers({
+        buffer_select.select({
             initial_mode = "insert",
             sort_mru = true,
-            ignore_current_buffer = true
+            ignore_current_buffer = true,
+            filter = function(buffer)
+                local buftype = vim.api.nvim_buf_get_option(buffer, "buftype")
+                return buftype ~= "terminal"
+            end
         })
     end
 })
@@ -460,11 +465,14 @@ add_command({
     leader       = "B",
     command_name = "SelectTerminal",
     cmd          = function()
-        tsbuiltin.buffers({
-            initial_mode = "normal",
+        buffer_select.select({
+            initial_mode = "insert",
             sort_mru = true,
             ignore_current_buffer = true,
-            default_text = "term://"
+            filter = function(buffer)
+                local buftype = vim.api.nvim_buf_get_option(buffer, "buftype")
+                return buftype == "terminal"
+            end
         })
     end
 })
