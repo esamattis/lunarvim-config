@@ -94,12 +94,12 @@ add_command({
             return
         end
 
-        local terminal_bufs = vim.tbl_filter(function(buf)
+        local buffers = vim.tbl_filter(function(buf)
             local current_buf = vim.fn.bufnr()
             return current_buf ~= buf
         end, vim.api.nvim_list_bufs())
 
-        for _, buf in ipairs(terminal_bufs) do
+        for _, buf in ipairs(buffers) do
             vim.api.nvim_buf_delete(buf, { force = true })
         end
     end
