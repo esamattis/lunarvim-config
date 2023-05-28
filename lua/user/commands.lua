@@ -801,8 +801,8 @@ add_command({
     desc         = "Reset Terminal",
     command_name = "ResetTerminal",
     keys         = {
-        { "n", fns.meta_key("l") },
-        { "i", fns.meta_key("l") }
+        { "n", fns.meta_key("r") },
+        { "i", fns.meta_key("r") }
     },
 
     cmd          = function()

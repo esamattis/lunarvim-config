@@ -37,7 +37,11 @@ if vim.g.neovide then
     vim.g.neovide_scale_factor = 1.0
     vim.o.guifont = "SauceCodePro Nerd Font:h14"
     vim.g.neovide_remember_window_size = true
-    vim.g.neovide_cursor_vfx_mode = "pixiedust"
+    -- vim.g.neovide_cursor_vfx_mode = "pixiedust"
+    vim.g.neovide_cursor_vfx_mode = "railgun"
+    vim.g.neovide_cursor_animation_length = 0.07
+    vim.g.neovide_cursor_trail_size = 0.3
+    vim.g.neovide_cursor_animate_command_line = true
     -- vim.g.neovide_input_macos_alt_is_meta = true
 
 

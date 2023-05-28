@@ -14,7 +14,7 @@ end)
 vim.keymap.set({ "t", "x" }, fns.meta_key("n"), "<C-\\><C-n>")
 
 
--- inser Control-C from normal mode too when a terminal buffer is active
+-- Insert Control-C from normal mode too when a terminal buffer is active
 vim.keymap.set({ "n", "x" }, "<C-c>", function()
     if vim.bo.buftype == "terminal" then
         vim.api.nvim_command("startinsert")
@@ -23,11 +23,21 @@ vim.keymap.set({ "n", "x" }, "<C-c>", function()
 end)
 
 
+-- delay insert start in neovide to allow animatio to finish
+local function start_delayed_insert()
+    if vim.g.neovide then
+        vim.defer_fn(function()
+            vim.api.nvim_command("startinsert")
+        end, 100)
+    else
+        vim.api.nvim_command("startinsert")
+    end
+end
+
 -- Automatically go to insert mode for new terminals
 vim.api.nvim_create_autocmd("TermOpen", {
     callback = function()
-        print("Setting insert mode for new termal")
-        vim.api.nvim_command("startinsert")
+        start_delayed_insert()
     end,
 })
 
@@ -35,8 +45,7 @@ vim.api.nvim_create_autocmd("TermOpen", {
 vim.api.nvim_create_autocmd("BufEnter", {
     callback = function()
         if vim.bo.buftype == "terminal" then
-            print("Setting insert mode for existing terminal")
-            vim.api.nvim_command("startinsert")
+            start_delayed_insert()
         end
     end,
 })
