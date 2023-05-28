@@ -277,6 +277,15 @@ add_command({
 })
 
 add_command({
+    desc         = "Paste from system clipboard",
+    command_name = "PasteFromSystemClipboard",
+    leader       = "P",
+    cmd          = function()
+        vim.cmd("normal \"+p")
+    end
+})
+
+add_command({
     desc         = "Marks",
     command_name = "Marks",
     cmd          = function()
