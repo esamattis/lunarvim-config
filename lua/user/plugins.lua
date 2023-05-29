@@ -13,6 +13,13 @@ local plugins = {
     { "shaunsingh/nord.nvim" },
     { "nvim-pack/nvim-spectre",     lazy = true },
     {
+        "simrat39/symbols-outline.nvim",
+        cmd = { "SymbolsOutline", "SymbolsOutlineOpen", "SymbolsOutlineClose" },
+        config = function()
+            require("symbols-outline").setup()
+        end
+    },
+    {
         "folke/tokyonight.nvim",
         lazy = false,
         priority = 1000,
