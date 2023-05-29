@@ -1,4 +1,5 @@
 local fns = require("user.functions")
+local maximize_window = require("user.maximize_window")
 local buffer_select = require("user.buffer_select")
 
 local full_screen = {
@@ -620,6 +621,12 @@ add_command({
     leader       = "s",
     key          = { "t", "<M-s>" },
     cmd          = function()
+        if maximize_window.is_maximized() then
+            print("Window maximized, unmaximize first")
+            return
+        end
+
+
         -- bail if in toggleterm terminal
         local current_buffer = vim.api.nvim_get_current_buf()
         local current_buffer_name = vim.api.nvim_buf_get_name(current_buffer)
@@ -674,14 +681,7 @@ add_command({
     command_name = "MaximizeWindow",
     leader       = "m",
     cmd          = function()
-        if vim.fn.tabpagenr("$") == 1 then
-            vim.cmd("tab split")
-            if vim.bo.buftype == "terminal" then
-                vim.api.nvim_command("startinsert")
-            end
-        else
-            vim.cmd("tabclose")
-        end
+        maximize_window.toggle()
     end,
 })
 
@@ -720,6 +720,15 @@ add_command({
 
     cmd          = function()
         vim.cmd("silent !prettier --write %")
+    end
+})
+
+add_command({
+    desc         = "Symbols Outline",
+    command_name = "SymbolsOutline",
+
+    cmd          = function()
+        vim.cmd("SymbolsOutline")
     end
 })
 
