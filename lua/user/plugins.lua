@@ -93,17 +93,6 @@ local plugins = {
         build = "npm ci && npx gulp vsDebugServerBundle",
     },
     {
-        "folke/trouble.nvim",
-        dependencies = "nvim-tree/nvim-web-devicons",
-        cmd = { "Trouble" },
-        config = function()
-            require("trouble").setup {
-                auto_close = true,
-                auto_preview = false
-            }
-        end
-    },
-    {
         'nmac427/guess-indent.nvim',
         config = function() require('guess-indent').setup {} end,
     },

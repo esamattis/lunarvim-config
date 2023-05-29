@@ -178,11 +178,21 @@ add_command({
 })
 
 add_command({
-    desc         = "Show Diagnostics",
-    leader       = "t",
-    command_name = "ShowDiagnostics",
+    desc         = "Diagnostics in Workspace",
+    leader       = "T",
+    command_name = "WorkspaceDiagnostics",
     cmd          = function()
-        tsbuiltin.diagnostics(full_screen)
+        vim.cmd("Telescope diagnostics")
+    end,
+})
+
+add_command({
+    desc         = "Workspace in Current Buffer",
+    leader       = "t",
+    command_name = "WorkspaceDiagnostics",
+    cmd          = function()
+        -- tsbuiltin.diagnostics(full_screen)
+        vim.cmd("Telescope diagnostics bufnr=0")
     end,
 })
 
@@ -206,6 +216,7 @@ add_command({
     key          = { "i", "<C-s>" },
     cmd          = function()
         vim.cmd("wa")
+        print("Saved all buffers")
     end,
 })
 
@@ -540,7 +551,6 @@ add_command({
     end
 })
 
-local diagnostics_active = true
 add_command({
     desc = "Toggle Virtual Text Diagnostics",
     leader = "E",
