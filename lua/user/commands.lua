@@ -218,13 +218,27 @@ add_command({
     end,
 })
 
+
+
 add_command({
-    desc         = "Go to definition",
+    desc         = "Go to definition lol",
     -- leader       = "R",
     command_name = "GoToDefinition",
     key          = { "n", "gd" },
     cmd          = function()
-        vim.lsp.buf.definition()
+        -- vim.lsp.buf.definition()
+        vim.cmd("Telescope lsp_definitions")
+    end,
+})
+
+add_command({
+    desc         = "Go to declration | type",
+    -- leader       = "R",
+    command_name = "GoToDeclaration",
+    key          = { "n", "gD" },
+    cmd          = function()
+        -- vim.lsp.buf.definition()
+        vim.cmd("Telescope lsp_type_definitions")
     end,
 })
 

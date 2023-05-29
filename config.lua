@@ -4,6 +4,9 @@ local fns = require("user.functions")
 lvim.builtin.bufferline.active = false
 lvim.builtin.alpha.active = false
 
+lvim.lsp.buffer_mappings.normal_mode.gd = nil
+lvim.lsp.buffer_mappings.normal_mode.gD = nil
+
 lvim.plugins = {
     require("user.command_center"),
     require("user.copilot"),
