@@ -187,9 +187,9 @@ add_command({
 })
 
 add_command({
-    desc         = "Workspace in Current Buffer",
+    desc         = "Diagnostics in Current Buffer",
     leader       = "t",
-    command_name = "WorkspaceDiagnostics",
+    command_name = "CurrentBufferDiagnostics",
     cmd          = function()
         -- tsbuiltin.diagnostics(full_screen)
         vim.cmd("Telescope diagnostics bufnr=0")
