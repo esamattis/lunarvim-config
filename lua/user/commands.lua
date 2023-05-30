@@ -42,7 +42,7 @@ local function add_command(cmd)
     end
 
     if vim.fn.exists(":CM" .. command_name) == 2 then
-        print("Duplicate command name: " .. command_name)
+        fns.notify("Duplicate command name: " .. command_name)
         return
     end
 
@@ -216,7 +216,7 @@ add_command({
     key          = { "i", "<C-s>" },
     cmd          = function()
         vim.cmd("wa")
-        print("Saved all buffers")
+        fns.notify("Saved all buffers")
     end,
 })
 
@@ -300,16 +300,16 @@ add_command({
             vim.cmd("normal y")
             local register_content = vim.fn.getreg('"')
             vim.fn.setreg('+', register_content)
-            print("Copied visual selection to system clipboard")
+            fns.notify("Copied visual selection to system clipboard")
         elseif source_mode == "visual" then
             vim.cmd("normal gvy")
             local register_content = vim.fn.getreg('"')
             vim.fn.setreg('+', register_content)
-            print("Copied visual selection to system clipboard")
+            fns.notify("Copied visual selection to system clipboard")
         else
             local register_content = vim.fn.getreg('"')
             vim.fn.setreg('+', register_content)
-            print("Copied default register content to system clipboard")
+            fns.notify("Copied default register content to system clipboard")
         end
     end
 })
@@ -353,7 +353,7 @@ add_command({
     leader       = "c",
     command_name = "CodeActions",
     cmd          = function()
-        print("Loading actions...")
+        fns.notify("Loading actions...")
         vim.lsp.buf.code_action()
     end,
 })
@@ -616,10 +616,10 @@ add_command({
             local visual_start = vim.fn.getpos("'<")
             local visual_end = vim.fn.getpos("'>")
 
-            print("Opening lines " .. visual_start[2] .. " to " .. visual_end[2] .. " in GitHub")
+            fns.notify("Opening lines " .. visual_start[2] .. " to " .. visual_end[2] .. " in GitHub")
             require("openingh").open_file(visual_start[2], visual_end[2])
         else
-            print("Opening file in GitHub")
+            fns.notify("Opening file in GitHub")
             require("openingh").open_file()
         end
     end
@@ -632,7 +632,7 @@ add_command({
     key          = { "t", "<M-s>" },
     cmd          = function()
         if maximize_window.is_maximized() then
-            print("Window maximized, unmaximize first")
+            fns.notify("Window maximized, unmaximize first")
             return
         end
 

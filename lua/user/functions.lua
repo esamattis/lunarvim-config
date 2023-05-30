@@ -140,4 +140,8 @@ function fns.log(...)
     f:close()
 end
 
+function fns.notify(message)
+    print(message)
+end
+
 return fns

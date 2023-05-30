@@ -1,3 +1,5 @@
+local fns = require("user.functions")
+
 local m = {};
 
 
@@ -11,7 +13,7 @@ function m.maximize()
     end
 
     if #vim.api.nvim_list_wins() == 1 then
-        print("Can't maximize with only one window")
+        fns.notify("Can't maximize with only one window")
         return
     end
 
