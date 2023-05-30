@@ -84,6 +84,7 @@ local plugins = {
                     skipFiles                = { '<node_internals>/**', 'node_modules/**' },
                 },
             }
+            dap.configurations.typescriptreact = dap.configurations.typescript
         end
 
     },
