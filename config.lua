@@ -57,7 +57,16 @@ if vim.g.neovide then
     vim.keymap.set('i', '<D-v>', function()
         vim.cmd("stopinsert")
         vim.cmd('normal! "+P')
-    end, { noremap = true, silent = true }) -- Paste insert mode
+    end, { noremap = true, silent = true })
+
+    -- paste in terminal mode
+    vim.keymap.set('t', '<D-v>', function()
+        fns.type_keys("<C-\\><C-n>")
+        -- what, type keys is async?
+        vim.defer_fn(function()
+            vim.cmd('normal! "+P')
+        end, 100)
+    end, { noremap = true, silent = true })
 end
 
 -- vim.api.nvim_set_keymap('', '<D-v>', '+p<CR>', { noremap = true, silent = true })
