@@ -64,7 +64,7 @@ if vim.g.neovide then
         fns.type_keys("<C-\\><C-n>")
         -- what, type keys is async?
         vim.defer_fn(function()
-            vim.cmd('normal! "+P')
+            vim.cmd('normal! "+Pi')
         end, 100)
     end, { noremap = true, silent = true })
 end
