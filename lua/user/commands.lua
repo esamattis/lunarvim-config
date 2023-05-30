@@ -503,7 +503,7 @@ add_command({
     command_name = "SelectTerminal",
     cmd          = function()
         buffer_select.select({
-            initial_mode = "insert",
+            initial_mode = "normal",
             sort_mru = true,
             ignore_current_buffer = true,
             filter = function(buffer)
@@ -644,7 +644,7 @@ add_command({
             return
         end
 
-        -- if in terminal already, create vertical terminal
+        -- if in terminal already, create new vertical terminal
         if vim.bo.buftype == "terminal" then
             vim.cmd("vsplit")
             vim.cmd("term")
@@ -655,8 +655,7 @@ add_command({
         local windows = vim.api.nvim_list_wins()
         for _, window in ipairs(windows) do
             local buffer = vim.api.nvim_win_get_buf(window)
-            local buftype = vim.api.nvim_buf_get_option(buffer, "buftype")
-            if buftype == "terminal" then
+            if fns.is_terminal_buffer(buffer) then
                 vim.api.nvim_set_current_win(window)
                 return
             end
@@ -667,22 +666,29 @@ add_command({
         vim.cmd("botright split")
         vim.cmd("resize 20")
 
-        -- and open existing terminal from background if it exists
-        local buffers = vim.api.nvim_list_bufs()
-        for _, buffer in ipairs(buffers) do
-            if vim.api.nvim_buf_is_valid(buffer) then
-                local buftype = vim.api.nvim_buf_get_option(buffer, "buftype")
-                local name = vim.api.nvim_buf_get_name(buffer)
+        local terminal_bufs = vim.tbl_filter(function(buf)
+            return fns.is_terminal_buffer(buf)
+        end, vim.api.nvim_list_bufs())
 
-                if buftype == "terminal" and not string.find(name, "#toggleterm#") then
-                    vim.cmd("buffer " .. buffer)
-                    return
-                end
-            end
+        if #terminal_bufs == 0 then
+            vim.cmd("term")
+            return
         end
 
-        -- if not start new terminal
-        vim.cmd("term")
+        if #terminal_bufs == 1 then
+            vim.cmd("buffer " .. terminal_bufs[1])
+            return
+        end
+
+
+        buffer_select.select({
+            initial_mode = "normal",
+            sort_mru = true,
+            ignore_current_buffer = true,
+            filter = function(buffer)
+                return fns.is_terminal_buffer(buffer)
+            end
+        })
     end
 })
 

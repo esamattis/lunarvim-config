@@ -144,4 +144,37 @@ function fns.notify(message)
     print(message)
 end
 
+function fns.is_file_buffer(buffer)
+    if not vim.api.nvim_buf_is_loaded(buffer) then
+        return false
+    end
+
+    if not vim.api.nvim_buf_is_valid(buffer) then
+        return false
+    end
+
+
+    local buftype = vim.api.nvim_buf_get_option(buffer, "buftype")
+    return buftype ~= "terminal" and buftype ~= "nofile"
+end
+
+function fns.is_terminal_buffer(buffer)
+    if not vim.api.nvim_buf_is_loaded(buffer) then
+        return false
+    end
+
+    if not vim.api.nvim_buf_is_valid(buffer) then
+        return false
+    end
+
+    local name = vim.api.nvim_buf_get_name(buffer)
+    if string.find(name, "#toggleterm#") then
+        return false
+    end
+
+
+    local buftype = vim.api.nvim_buf_get_option(buffer, "buftype")
+    return buftype == "terminal"
+end
+
 return fns
