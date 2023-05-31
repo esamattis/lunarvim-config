@@ -38,7 +38,6 @@ end
 
 local function plain_replace(text, search, replacement)
     local result = ""
-    local search_len = string.len(search)
     local index = 1
     while index <= string.len(text) do
         local match_start, match_end = string.find(text, search, index, true)
