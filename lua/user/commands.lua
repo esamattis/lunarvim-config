@@ -632,7 +632,8 @@ add_command({
     key          = { "t", "<M-s>" },
     cmd          = function()
         if maximize_window.is_maximized() then
-            fns.notify("Window maximized, unmaximize first")
+            maximize_window.restore()
+            fns.notify("Window unmaximized")
             return
         end
 
