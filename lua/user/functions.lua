@@ -71,10 +71,41 @@ function fns.search_and_replace_current_buffer(old_string, new_string)
     vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, lines)
 end
 
--- Delete buffer without closing window
--- https://stackoverflow.com/a/8585343/153718
+-- get the previous buffer. Get file if the current buffer is a file and
+-- terminal if the current buffer is a terminal
+function fns.get_previous_buffer()
+    local buffers = vim.api.nvim_list_bufs()
+
+    table.sort(buffers, function(a, b)
+        return vim.fn.getbufinfo(a)[1].lastused > vim.fn.getbufinfo(b)[1].lastused
+    end)
+
+    for _, buf in ipairs(buffers) do
+        if buf ~= vim.fn.bufnr() then
+            if vim.bo.buftype == "terminal" then
+                if fns.is_terminal_buffer(buf) then
+                    return buf
+                end
+            else
+                if fns.is_file_buffer(buf) then
+                    return buf
+                end
+            end
+        end
+    end
+end
+
+-- delete current buffer without closing the window
 function fns.delete_current_buffer()
-    vim.cmd("b#|bd#")
+    local current_buffer = vim.api.nvim_get_current_buf()
+
+    local buf = fns.get_previous_buffer()
+    if buf then
+        vim.api.nvim_command("buffer " .. buf)
+        vim.cmd("bd " .. current_buffer)
+    else
+        fns.notify("No previous buffer, cannot delete")
+    end
 end
 
 function fns.is_pnpm_monorepo()
@@ -141,7 +172,7 @@ function fns.log(...)
 end
 
 function fns.notify(message)
-    print(message)
+    require("notify")(message)
 end
 
 function fns.is_file_buffer(bufnr)

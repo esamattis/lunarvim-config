@@ -21,7 +21,6 @@ end
 require("user.terminal")
 require("user.commands")
 require("user.lsp")
-require("user.buffer_toggle")
 require("user.project_chdir")
 
 

@@ -178,6 +178,20 @@ add_command({
 })
 
 add_command({
+    desc         = "Go to previous buffer",
+    command_name = "PreviousBuffer",
+    key          = { "n", ",m" },
+    cmd          = function()
+        local buf = fns.get_previous_buffer()
+        if buf then
+            vim.api.nvim_command("buffer " .. buf)
+        else
+            print("No previous buffer")
+        end
+    end,
+})
+
+add_command({
     desc         = "Diagnostics in Workspace",
     leader       = "T",
     command_name = "WorkspaceDiagnostics",
