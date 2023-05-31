@@ -643,7 +643,6 @@ add_command({
     desc         = "Terminal Split",
     command_name = "TerminalSplit",
     leader       = "s",
-    key          = { "t", "<M-s>" },
     cmd          = function()
         if maximize_window.is_maximized() then
             maximize_window.restore()
@@ -706,6 +705,10 @@ add_command({
         })
     end
 })
+
+fns.keymap_all(fns.meta_key("s"), function()
+    vim.cmd("CMTerminalSplit")
+end)
 
 add_command({
     desc         = "Maximize current window",
