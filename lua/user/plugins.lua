@@ -12,6 +12,7 @@ local plugins = {
     { "rmehri01/onenord.nvim" },
     { "shaunsingh/nord.nvim" },
     { "nvim-pack/nvim-spectre",     lazy = true },
+    { "rcarriga/nvim-notify",       lazy = true },
     {
         "simrat39/symbols-outline.nvim",
         cmd = { "SymbolsOutline", "SymbolsOutlineOpen", "SymbolsOutlineClose" },
