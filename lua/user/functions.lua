@@ -123,6 +123,15 @@ end
 
 -- Add key binding for all modes
 function fns.keymap_all(key, callback)
+    if type(callback) == "string" then
+        vim.keymap.set({ "t", "x" }, key, callback)
+        vim.keymap.set({ "i", "x" }, key, callback)
+        vim.keymap.set({ "n", "x" }, key, callback)
+        vim.keymap.set({ "v", "x" }, key, callback)
+        return
+    end
+
+
     vim.keymap.set({ "t", "x" }, key, function()
         callback("terminal")
     end)

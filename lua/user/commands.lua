@@ -240,7 +240,7 @@ add_command({
     leader       = "R",
     command_name = "FindAllReferences",
     cmd          = function()
-        tsbuiltin.lsp_references(full_screen)
+        vim.cmd("Telescope lsp_references")
     end,
 })
 
@@ -720,6 +720,10 @@ add_command({
 })
 
 fns.keymap_all(fns.meta_key("o"), function()
+    vim.cmd("CMMaximizeWindow")
+end)
+
+fns.keymap_all("å", function()
     vim.cmd("CMMaximizeWindow")
 end)
 

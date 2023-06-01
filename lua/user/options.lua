@@ -31,3 +31,5 @@ vim.opt.autoread = true
 
 
 vim.opt.showtabline = 0
+
+vim.opt.iskeyword:append("-")

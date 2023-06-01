@@ -82,10 +82,17 @@ fns.keymap_all("<m-x>", function()
 end)
 
 -- split resize
-vim.keymap.set("n", "<C-j>", "5<c-w>+")
-vim.keymap.set("n", "<C-k>", "5<c-w>-")
-vim.keymap.set("n", "<C-l>", "10<c-w>>")
-vim.keymap.set("n", "<C-h>", "10<c-w><")
+fns.keymap_all("<S-C-j>", "5<c-w>+")
+fns.keymap_all("<S-C-k>", "5<c-w>-")
+fns.keymap_all("<S-C-l>", "10<c-w>>")
+fns.keymap_all("<S-C-h>", "10<c-w><")
+
+-- fast movement with ctrl
+fns.keymap_all("<C-j>", "5j")
+fns.keymap_all("<C-k>", "5k")
+fns.keymap_all("<C-l>", "5l")
+fns.keymap_all("<C-h>", "5h")
+
 
 
 -- insert tab character always
