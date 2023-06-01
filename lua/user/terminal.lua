@@ -11,8 +11,8 @@ fns.keymap_all(fns.meta_key("y"), function()
 end)
 
 -- exit from terminal mode
-vim.keymap.set({ "t", "x" }, fns.meta_key("n"), "<C-\\><C-n>")
-vim.keymap.set({ "t", "x" }, "jj", "<C-\\><C-n>")
+vim.keymap.set("t", fns.meta_key("n"), "<C-\\><C-n>")
+vim.keymap.set("t", "jj", "<C-\\><C-n>")
 
 
 -- Insert Control-C from normal mode too when a terminal buffer is active
