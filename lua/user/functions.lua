@@ -132,19 +132,19 @@ function fns.keymap_all(key, callback)
     end
 
 
-    vim.keymap.set({ "t", "x" }, key, function()
+    vim.keymap.set("t", key, function()
         callback("terminal")
     end)
 
-    vim.keymap.set({ "i", "x" }, key, function()
+    vim.keymap.set("i", key, function()
         callback("insert")
     end)
 
-    vim.keymap.set({ "n", "x" }, key, function()
+    vim.keymap.set("n", key, function()
         callback("normal")
     end)
 
-    vim.keymap.set({ "v", "x" }, key, function()
+    vim.keymap.set("x", key, function()
         callback("visual")
     end)
 end
