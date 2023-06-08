@@ -1,4 +1,12 @@
+local fns = require("user.functions")
 lvim.format_on_save.enabled = true
+lvim.format_on_save.pattern = { "*.ts", "*.tsx", "*.php", "*.json", "*.php" }
+
+local formatters = require "lvim.lsp.null-ls.formatters"
+formatters.setup {
+  { command = "prettier", filetypes = { "php" } },
+}
+
 
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
