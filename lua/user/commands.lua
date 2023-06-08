@@ -780,6 +780,16 @@ add_command({
 })
 
 add_command({
+    desc         = "Format buffer",
+    command_name = "FormatBuffer",
+
+    cmd          = function()
+       vim.lsp.buf.format()
+    end
+})
+
+
+add_command({
     desc         = "Select filetype",
     command_name = "SelectFileType",
     cmd          = function()
