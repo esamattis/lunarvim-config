@@ -179,8 +179,8 @@ function fns.log(...)
     f:close()
 end
 
-function fns.notify(message)
-    require("notify")(message)
+function fns.notify(message, level)
+    require("notify")(message, level)
 end
 
 function fns.is_file_buffer(bufnr)
