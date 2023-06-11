@@ -47,6 +47,18 @@ local plugins = {
         cmd = { "Rename", "Delete", "Move", "Mkdir" },
     },
     {
+        "MunifTanjim/nui.nvim",
+        lazy = true,
+    },
+    {
+        "VonHeikemen/fine-cmdline.nvim",
+        dependencies = { "MunifTanjim/nui.nvim" },
+        cmd = { "FineCmdline" },
+        init = function()
+            vim.api.nvim_set_keymap("n", ":", "<cmd>FineCmdline<CR>", { noremap = true })
+        end
+    },
+    {
         "mxsdev/nvim-dap-vscode-js",
         cmd = { "InitDebug" },
         dependencies = { "mfussenegger/nvim-dap", "microsoft/vscode-js-debug" },

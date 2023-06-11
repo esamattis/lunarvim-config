@@ -178,6 +178,14 @@ add_command({
 })
 
 add_command({
+    desc         = "Refresh git signs",
+    command_name = "RefreshGitSigns",
+    cmd          = function()
+        vim.cmd("Gitsigns refresh")
+    end,
+})
+
+add_command({
     desc         = "Go to previous buffer",
     command_name = "PreviousBuffer",
     key          = { "n", ",m" },
@@ -773,7 +781,6 @@ add_command({
 add_command({
     desc         = "Save without formatting",
     command_name = "SaveWithoutFormatting",
-
     cmd          = function()
         vim.cmd("noautocmd w")
     end
@@ -782,7 +789,7 @@ add_command({
 add_command({
     desc         = "Format buffer",
     command_name = "FormatBuffer",
-
+    leader = "F",
     cmd          = function()
        vim.lsp.buf.format()
     end
