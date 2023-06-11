@@ -790,6 +790,10 @@ add_command({
     desc         = "Format buffer",
     command_name = "FormatBuffer",
     leader = "F",
+    keys         = {
+        { "n", fns.meta_key("f") },
+        { "i", fns.meta_key("f") },
+    },
     cmd          = function()
        vim.lsp.buf.format()
     end
