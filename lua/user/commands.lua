@@ -789,13 +789,14 @@ add_command({
 add_command({
     desc         = "Format buffer",
     command_name = "FormatBuffer",
-    leader = "F",
+    leader       = "W",
     keys         = {
         { "n", fns.meta_key("f") },
         { "i", fns.meta_key("f") },
     },
     cmd          = function()
-       vim.lsp.buf.format()
+        vim.lsp.buf.format()
+        fns.notify("Formatted buffer without saving")
     end
 })
 
@@ -810,7 +811,7 @@ add_command({
 
 add_command({
     desc         = "Toggle Light and Dark Mode",
-    command_name = "SelectFileType",
+    command_name = "ToggleLightDarkMode",
     cmd          = function()
         local current_color_scheme = vim.g.colors_name
         if current_color_scheme == "onenord" then
