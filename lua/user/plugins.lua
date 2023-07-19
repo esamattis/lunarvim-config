@@ -50,14 +50,14 @@ local plugins = {
         "MunifTanjim/nui.nvim",
         lazy = true,
     },
-    {
-        "VonHeikemen/fine-cmdline.nvim",
-        dependencies = { "MunifTanjim/nui.nvim" },
-        cmd = { "FineCmdline" },
-        init = function()
-            vim.api.nvim_set_keymap("n", ":", "<cmd>FineCmdline<CR>", { noremap = true })
-        end
-    },
+    -- {
+    --     "VonHeikemen/fine-cmdline.nvim",
+    --     dependencies = { "MunifTanjim/nui.nvim" },
+    --     cmd = { "FineCmdline" },
+    --     init = function()
+    --         vim.api.nvim_set_keymap("n", ":", "<cmd>FineCmdline<CR>", { noremap = true })
+    --     end
+    -- },
     {
         "mxsdev/nvim-dap-vscode-js",
         cmd = { "InitDebug" },

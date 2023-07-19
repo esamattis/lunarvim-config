@@ -1,6 +1,6 @@
 local fns = require("user.functions")
 lvim.format_on_save.enabled = true
-lvim.format_on_save.pattern = { "*.ts", "*.tsx", "*.php", "*.json", "*.php" }
+lvim.format_on_save.pattern = { "*.ts", "*.tsx", "*.php", "*.json", "*.php", "*.rs" }
 
 local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {

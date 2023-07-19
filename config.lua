@@ -26,20 +26,24 @@ require("user.project_chdir")
 require("user.autoread")
 
 
-
--- if ITERM_PROFILE is set to "dark" then use the dark theme
-if os.getenv("ITERM_PROFILE") == "Light" then
-    lvim.colorscheme = "onenord-light"
-else
-    lvim.colorscheme = "tokyonight"
-end
-
-
-
 if vim.g.neovide then
-    vim.opt.linespace = 0
+    local out = vim.fn.systemlist("defaults read -g AppleInterfaceStyle")[1]
+
+    if out == "Dark" then
+        lvim.colorscheme = "tokyonight"
+    else
+        lvim.colorscheme = "onenord-light"
+    end
+
+
+
+    vim.opt.linespace = 5
     vim.g.neovide_scale_factor = 1.0
-    vim.o.guifont = "SauceCodePro Nerd Font:h14"
+    -- vim.o.guifont = "SauceCodePro Nerd Font:h14"
+    -- vim.o.guifont = "FantasqueSansM Nerd Font:h16"
+    vim.o.guifont = "UbuntuMono Nerd Font Mono:h14"
+    -- vim.o.guifont = "Comic Mono:h14"
+    -- vim.o.guifont = "FiraMono Nerd Font Mono:h14"
     vim.g.neovide_remember_window_size = true
     -- vim.g.neovide_cursor_vfx_mode = "pixiedust"
     vim.g.neovide_cursor_vfx_mode = "railgun"
@@ -68,6 +72,13 @@ if vim.g.neovide then
             vim.cmd('normal! "+Pi')
         end, 100)
     end, { noremap = true, silent = true })
+else
+    if os.getenv("ITERM_PROFILE") == "Light" then
+        -- if ITERM_PROFILE is set to "dark" then use the dark theme
+        lvim.colorscheme = "onenord-light"
+    else
+        lvim.colorscheme = "tokyonight"
+    end
 end
 
 -- vim.api.nvim_set_keymap('', '<D-v>', '+p<CR>', { noremap = true, silent = true })
@@ -90,10 +101,10 @@ fns.keymap_all("<S-C-l>", "10<c-w>>")
 fns.keymap_all("<S-C-h>", "10<c-w><")
 
 -- fast movement with ctrl
-fns.keymap_all("<C-j>", "5j")
-fns.keymap_all("<C-k>", "5k")
-fns.keymap_all("<C-l>", "5l")
-fns.keymap_all("<C-h>", "5h")
+fns.keymap_all("<C-j>", ")")
+fns.keymap_all("<C-k>", "(")
+fns.keymap_all("<C-l>", "e")
+fns.keymap_all("<C-h>", "b")
 
 
 
@@ -101,6 +112,8 @@ fns.keymap_all("<C-h>", "5h")
 vim.keymap.set("i", "<S-Tab>", "<C-V><Tab>")
 
 
+vim.keymap.set("x", "i", "<esc>i")
+vim.keymap.set("x", "a", "<esc>a")
 
 -- old leader
 vim.keymap.set("n", ",", function()
