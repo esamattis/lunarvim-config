@@ -23,7 +23,9 @@ require("user.terminal")
 require("user.commands")
 require("user.lsp")
 require("user.project_chdir")
-require("user.autoread")
+
+-- breaks focus on terminal
+-- require("user.autoread")
 
 
 if vim.g.neovide then
@@ -52,17 +54,12 @@ if vim.g.neovide then
     vim.g.neovide_cursor_animate_command_line = true
     -- vim.g.neovide_input_macos_alt_is_meta = true
 
-
     vim.keymap.set('n', '<D-s>', ':w<CR>') -- Save
     vim.keymap.set('x', '<D-c>', '"+ygv')  -- Copy
     vim.keymap.set('n', '<D-v>', '"+P')    -- Paste normal mode
     vim.keymap.set('x', '<D-v>', 'x"+P')   -- Paste visual mode
     vim.keymap.set('c', '<D-v>', '<C-R>+') -- Paste command mode
-    -- vim.keymap.set('i', '<D-v>', '<ESC>l"+Pli', { noremap = true, silent = true }) -- Paste insert mode
-    vim.keymap.set('i', '<D-v>', function()
-        vim.cmd("stopinsert")
-        vim.cmd('normal! "+P')
-    end, { noremap = true, silent = true })
+    vim.keymap.set('i', '<D-v>', '<C-R>+', { noremap = true, silent = true }) -- Paste insert mode
 
     -- paste in terminal mode
     vim.keymap.set('t', '<D-v>', function()
@@ -80,6 +77,7 @@ else
         lvim.colorscheme = "tokyonight"
     end
 end
+
 
 -- vim.api.nvim_set_keymap('', '<D-v>', '+p<CR>', { noremap = true, silent = true })
 -- vim.api.nvim_set_keymap('!', '<D-v>', '"+P', { noremap = true, silent = true })
@@ -112,8 +110,23 @@ fns.keymap_all("<C-h>", "b")
 vim.keymap.set("i", "<S-Tab>", "<C-V><Tab>")
 
 
+-- Aways start insert mode with i and a in visual mode
 vim.keymap.set("x", "i", "<esc>i")
 vim.keymap.set("x", "a", "<esc>a")
+
+vim.keymap.set("x", "<space>", "<esc>")
+
+-- Always send insert mode enter in visual and normal modes
+vim.keymap.set("x", "<enter>", "<esc>i<enter>")
+vim.keymap.set("n", "<enter>", "i<enter>")
+
+-- Always clear with backspace
+vim.keymap.set("x", "<bs>", "<esc>i<bs>")
+vim.keymap.set("n", "<bs>", "i<bs>")
+
+-- Copy to system clipboard
+vim.keymap.set("x", "<space>y", '"+y')
+vim.keymap.set("x", "<space>c", '"+y')
 
 -- old leader
 vim.keymap.set("n", ",", function()
@@ -166,11 +179,11 @@ fns.keymap_all("<D-0>", function()
     vim.cmd("FontReset")
 end)
 
--- if vim.fn.argc() == 0 and vim.g.neovide then
---     vim.defer_fn(
---         function()
---             vim.cmd('Telescope projects')
---         end,
---         0
---     )
--- end
+if vim.fn.argc() == 0 and vim.g.neovide then
+    vim.defer_fn(
+        function()
+            vim.cmd('Telescope projects')
+        end,
+        0
+    )
+end

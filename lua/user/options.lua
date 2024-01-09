@@ -1,11 +1,17 @@
 local fns = require("user.functions")
 lvim.format_on_save.enabled = true
-lvim.format_on_save.pattern = { "*.ts", "*.tsx", "*.php", "*.json", "*.php", "*.rs" }
+lvim.format_on_save.pattern = { "*.js", "*.ts", "*.tsx", "*.php", "*.json", "*.php", "*.rs", "*.md" }
 
 local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {
   { command = "prettier", filetypes = { "php" } },
 }
+
+
+-- vim.opt.mousefocus = false
+-- disable mouse
+-- vim.opt.mouse = ""
+vim.opt.scrolloff = 0
 
 
 vim.opt.tabstop = 4
@@ -31,7 +37,6 @@ vim.opt.fixendofline = false
 -- lvim.leader = "<Space>"
 --
 
-vim.opt.scrolloff = 0
 
 vim.diagnostic.config({ virtual_text = false, })
 

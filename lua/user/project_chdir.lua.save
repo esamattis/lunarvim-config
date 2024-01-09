@@ -21,7 +21,7 @@ vim.api.nvim_create_user_command("SmartRoot", function()
 end, { nargs = 0 })
 
 -- https://github.com/ahmedkhalf/project.nvim/blob/8c6bad7d22eef1b71144b401c9f74ed01526a4fb/lua/project_nvim/project.lua#LL260C40-L260C68
-vim.api.nvim_create_autocmd({ "VimEnter", "BufEnter" }, {
+vim.api.nvim_create_autocmd({ "VimEnter", "BufEnter *" }, {
     callback = function()
         vim.cmd("SmartRoot")
     end,
